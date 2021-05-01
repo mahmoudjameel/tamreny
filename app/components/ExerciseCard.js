@@ -15,7 +15,7 @@ const ExerciseCard = ({
   description,
   categoryId,
   type,
-  videoId,
+  videoId
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -73,14 +73,12 @@ const ExerciseCard = ({
       onPress={() => navigation.navigate("Exercise", { _id, type })}
     >
       <Container>
-        <LikeBtn style={LikeBtnStyle} />
-        <ShareBtn style={ShareBtnStyle} />
         <ImageContainer>
           <Image
             source={{
               uri:
                 images[0] ||
-                `http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                `http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`
             }}
             style={{ width: "100%", height: "100%", resizeMode: "cover" }}
           />

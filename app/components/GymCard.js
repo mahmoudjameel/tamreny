@@ -84,8 +84,6 @@ const GymCard = ({
       onPress={() => navigation.navigate("Gym", { _id: _id, dis })}
     >
       <Container>
-        <LikeBtn style={LikeBtnStyle} />
-        <ShareBtn style={ShareBtnStyle} />
         <SliderContainer>
           <Image
             source={{

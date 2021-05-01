@@ -6,7 +6,7 @@ import { Header } from "../components/index";
 import { ProductCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Products = (props) => {
+const Products = props => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -22,11 +22,11 @@ const Products = (props) => {
   const getProducts = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.post(`${API_URL}/articles/get`);
+      let response = await axios.post(`${API_URL}/products/get`);
       let data = await response.data;
 
       if (data.status) {
-        setProducts(data.articles);
+        setProducts(data.products);
       } else {
         alert(data.errors);
       }
@@ -50,15 +50,15 @@ const Products = (props) => {
         <ScrollContainer bgColor={Colors.white}>
           <Container bgColor={Colors.white}>
             {products.filter(
-              (product) =>
+              product =>
                 product.title.includes(searchQuery) ||
-                product.content.includes(searchQuery)
+                product.description.includes(searchQuery)
             ).length != 0 ? (
               products
                 .filter(
-                  (product) =>
+                  product =>
                     product.title.includes(searchQuery) ||
-                    product.content.includes(searchQuery)
+                    product.description.includes(searchQuery)
                 )
                 .map((product, i) => (
                   <ProductCard key={i} {...props} product={product} />
@@ -74,18 +74,18 @@ const Products = (props) => {
 };
 
 const ScrollContainer = styled.ScrollView`
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
   min-height: 100%;
 `;
 
 const MainContainer = styled.View`
   flex: 1;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
 `;
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
   padding: 20px 15px;
 `;
 
@@ -93,7 +93,7 @@ const NormalText = styled.Text`
   font-family: Cairo-Regular;
   font-size: 20px;
   margin-top: 10px;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   text-align: center;
 `;
 export default Products;

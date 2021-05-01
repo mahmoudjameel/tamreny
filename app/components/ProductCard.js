@@ -82,18 +82,20 @@ const ProductCard = ({ navigation, product }) => {
       useForeground
       onPress={() =>
         navigation.navigate("Product", {
-          productObj: product,
+          productObj: product
         })
       }
     >
       <Container>
-        <LikeBtn style={LikeBtnStyle} />
+        {
+          //<LikeBtn style={LikeBtnStyle} />
+        }
         <PriceContainer>
-          <PriceText>250 د.ع</PriceText>
+          <PriceText>{product.price} د.ع</PriceText>
         </PriceContainer>
         <ProductImage source={{ uri: product.mainImage }} />
         <Title numberOfLines={1}>{product.title}</Title>
-        <Description numberOfLines={2}>{product.content}</Description>
+        <Description numberOfLines={2}>{product.description}</Description>
       </Container>
     </TouchableNativeFeedback>
   );

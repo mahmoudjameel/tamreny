@@ -6,7 +6,7 @@ import axios from "axios";
 import {
   useThemeContext,
   useAuthContext,
-  useAppContext,
+  useAppContext
 } from "../helpers/AppProvider";
 import { API_URL } from "../settings/Config";
 
@@ -14,9 +14,9 @@ const Login = ({ navigation }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
   const { setIsLoading } = useAppContext();
-  const { setIsLoggedIn } = useAuthContext();
+  const { setIsLoggedIn, setUser } = useAuthContext();
 
-  const [user, setUser] = useState({ user: "", password: "" });
+  const [user, setUserLogin] = useState({ user: "", password: "" });
 
   const login = async () => {
     try {
@@ -36,8 +36,11 @@ const Login = ({ navigation }) => {
       );
       await AsyncStorage.setItem("@user_data", JSON.stringify(data.user));
 
-
       setIsLoggedIn(true);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data.accessToken}`;
+      setUser(data.user);
       setIsLoading(false);
       navigation.navigate("Home");
     } catch (e) {
@@ -60,7 +63,7 @@ const Login = ({ navigation }) => {
         bgColor={Colors.white}
         placeholder="اسم المستخدم أو البريد الالكتروني"
         value={user.user}
-        onChangeText={(value) => setUser({ ...user, user: value })}
+        onChangeText={value => setUserLogin({ ...user, user: value })}
       />
       <InputTitle>كلمة المرور</InputTitle>
       <Input
@@ -68,7 +71,7 @@ const Login = ({ navigation }) => {
         placeholder="كلمة المرور"
         secureTextEntry
         value={user.password}
-        onChangeText={(value) => setUser({ ...user, password: value })}
+        onChangeText={value => setUserLogin({ ...user, password: value })}
       />
       <TouchableNativeFeedback onPress={() => login()} useForeground>
         <Btn bgColor={Colors.primary} style={{ marginTop: 40 }}>
@@ -82,7 +85,7 @@ const Login = ({ navigation }) => {
           marginBottom: 0,
           marginTop: 15,
           fontFamily: "Cairo-SemiBold",
-          color: Colors.primary,
+          color: Colors.primary
         }}
       >
         العودة الي الصفحة الرئيسية
@@ -109,12 +112,12 @@ const Input = styled.TextInput`
   margin-top: 8px;
   text-align: right;
   elevation: 5;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
 `;
 
 const Container = styled.ScrollView`
   padding: 15px;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
 `;
 const LogoContainer = styled.View`
   justify-content: center;
@@ -134,7 +137,7 @@ const InputTitle = styled.Text`
   margin-top: 20px;
 `;
 const Btn = styled.View`
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
   width: 80%;
   height: 50px;
   justify-content: center;
@@ -148,12 +151,12 @@ const Btn = styled.View`
 `;
 const BtnText = styled.Text`
   font-family: Cairo-SemiBold;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   font-size: 20px;
 `;
 const NoticeText = styled.Text`
   font-family: Cairo-Regular;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   font-size: 16px;
   text-align: center;
   margin-top: 40px;

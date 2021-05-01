@@ -2,6 +2,7 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "react-native";
+import axios from "axios";
 
 //Colors
 import ColorsObj from "../settings/Colors";
@@ -22,6 +23,7 @@ export const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [forceLogin, setForceLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState({});
   const [primaryFace, setPrimaryFace] = useState(
     Image.resolveAssetSource(PowerFace).uri
   );
@@ -37,8 +39,16 @@ export const AppProvider = ({ children }) => {
       );
       const userData = JSON.parse(await AsyncStorage.getItem("@user_data"));
 
-      if (!accessToken || !userData) setIsLoggedIn(false);
-      else setIsLoggedIn(true);
+      if (!accessToken || !userData) {
+        setIsLoggedIn(false);
+        setUser({});
+      } else {
+        setIsLoggedIn(true);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+        setUser(userData);
+      }
     })();
   }, []);
 
@@ -80,11 +90,18 @@ export const AppProvider = ({ children }) => {
       <ThemeContext.Provider
         value={{
           Colors,
-          setPrimaryColor: (color) => setColors({ ...Colors, primary: color }),
+          setPrimaryColor: color => setColors({ ...Colors, primary: color })
         }}
       >
         <AuthContext.Provider
-          value={{ isLoggedIn, setIsLoggedIn, forceLogin, setForceLogin }}
+          value={{
+            isLoggedIn,
+            setIsLoggedIn,
+            forceLogin,
+            setForceLogin,
+            user,
+            setUser
+          }}
         >
           {children}
         </AuthContext.Provider>

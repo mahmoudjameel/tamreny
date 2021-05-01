@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {
   useThemeContext,
   useAuthContext,
-  useAppContext,
+  useAppContext
 } from "../helpers/AppProvider";
 import { API_URL } from "../settings/Config";
 
@@ -15,15 +15,15 @@ const Register = ({ navigation }) => {
   let Colors = Theme.Colors;
 
   const { setIsLoading } = useAppContext();
-  const { setIsLoggedIn } = useAuthContext();
+  const { setIsLoggedIn, setUser } = useAuthContext();
 
-  const [user, setUser] = useState({
+  const [user, setUserLogin] = useState({
     username: "",
     email: "",
     name: "",
     phoneNumber: "",
     password: "",
-    passwordConfirm: "",
+    passwordConfirm: ""
   });
 
   const register = async () => {
@@ -44,6 +44,10 @@ const Register = ({ navigation }) => {
       );
       await AsyncStorage.setItem("@user_data", JSON.stringify(data.user));
       setIsLoggedIn(true);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data.accessToken}`;
+      setUser(data.user);
       setIsLoading(false);
       alert(data.messages);
       navigation.navigate("Home");
@@ -66,28 +70,28 @@ const Register = ({ navigation }) => {
         bgColor={Colors.white}
         placeholder="رقم الهاتف"
         value={user.phoneNumber}
-        onChangeText={(value) => setUser({ ...user, phoneNumber: value })}
+        onChangeText={value => setUserLogin({ ...user, phoneNumber: value })}
       />
       <InputTitle>اسم المستخدم</InputTitle>
       <Input
         bgColor={Colors.white}
         placeholder="اسم المستخدم"
         value={user.username}
-        onChangeText={(value) => setUser({ ...user, username: value })}
+        onChangeText={value => setUserLogin({ ...user, username: value })}
       />
       <InputTitle>البريد الالكتروني</InputTitle>
       <Input
         bgColor={Colors.white}
         placeholder="البريد الالكتروني"
         value={user.email}
-        onChangeText={(value) => setUser({ ...user, email: value })}
+        onChangeText={value => setUserLogin({ ...user, email: value })}
       />
       <InputTitle>الاسم بالكامل</InputTitle>
       <Input
         bgColor={Colors.white}
         placeholder="الاسم بالكامل"
         value={user.name}
-        onChangeText={(value) => setUser({ ...user, name: value })}
+        onChangeText={value => setUserLogin({ ...user, name: value })}
       />
       <InputTitle>كلمة المرور</InputTitle>
       <Input
@@ -95,7 +99,7 @@ const Register = ({ navigation }) => {
         placeholder="كلمة المرور"
         secureTextEntry
         value={user.password}
-        onChangeText={(value) => setUser({ ...user, password: value })}
+        onChangeText={value => setUserLogin({ ...user, password: value })}
       />
       <InputTitle>تأكيد كلمة المرور</InputTitle>
       <Input
@@ -103,7 +107,9 @@ const Register = ({ navigation }) => {
         placeholder="تأكيد كلمة المرور"
         secureTextEntry
         value={user.passwordConfirm}
-        onChangeText={(value) => setUser({ ...user, passwordConfirm: value })}
+        onChangeText={value =>
+          setUserLogin({ ...user, passwordConfirm: value })
+        }
       />
       <TouchableNativeFeedback onPress={() => register()} useForeground>
         <Btn bgColor={Colors.primary} style={{ marginTop: 40 }}>
@@ -117,7 +123,7 @@ const Register = ({ navigation }) => {
           marginBottom: 0,
           marginTop: 15,
           fontFamily: "Cairo-SemiBold",
-          color: Colors.primary,
+          color: Colors.primary
         }}
       >
         العودة الي الصفحة الرئيسية
@@ -137,7 +143,7 @@ const Register = ({ navigation }) => {
 
 const Container = styled.ScrollView`
   padding: 15px;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
 `;
 const LogoContainer = styled.View`
   justify-content: center;
@@ -159,7 +165,7 @@ const Input = styled.TextInput`
   margin-top: 8px;
   text-align: right;
   elevation: 5;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
 `;
 const InputTitle = styled.Text`
   font-size: 18px;
@@ -167,7 +173,7 @@ const InputTitle = styled.Text`
   margin-top: 20px;
 `;
 const Btn = styled.View`
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
   width: 80%;
   height: 50px;
   justify-content: center;
@@ -181,12 +187,12 @@ const Btn = styled.View`
 `;
 const BtnText = styled.Text`
   font-family: Cairo-SemiBold;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   font-size: 20px;
 `;
 const NoticeText = styled.Text`
   font-family: Cairo-Regular;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   font-size: 16px;
   text-align: center;
   margin-top: 40px;

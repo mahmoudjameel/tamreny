@@ -9,7 +9,7 @@ import { API_URL } from "../settings/Config";
 import { Header, ReactBtn, ConfirmBuy } from "../components";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Product = (props) => {
+const Product = props => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -29,13 +29,13 @@ const Product = (props) => {
   const getArticle = async () => {
     try {
       // setIsLoading(true);
-      let response = await axios.post(`${API_URL}/articles/get`, {
-        _id: productObj._id,
+      let response = await axios.post(`${API_URL}/products/get`, {
+        _id: productObj._id
       });
       let data = await response.data;
 
       if (data.status) {
-        setProduct(data.articles[0]);
+        setProduct(data.products[0]);
       } else {
         alert(data.errors);
       }
@@ -46,7 +46,7 @@ const Product = (props) => {
     }
   };
 
-  const formatTime = (time) => {
+  const formatTime = time => {
     let days = new Date(time).getDate();
     let month = new Date(time).getMonth() + 1;
     let year = new Date(time).getFullYear();
@@ -156,14 +156,14 @@ const Product = (props) => {
         <MainContainer>
           <Container>
             <PriceContainer>
-              <PriceText>250 د.ع</PriceText>
+              <PriceText>{product.price} د.ع</PriceText>
             </PriceContainer>
             <Title>{product.title}</Title>
             <MainImageContainer>
               <MainImage source={{ uri: product.mainImage }} />
             </MainImageContainer>
             <Title style={{ textAlign: "right" }}>التفاصيل</Title>
-            <Autolink text={product.content} component={Content} />
+            <Autolink text={product.description} component={Content} />
             {product.coachBrief && (
               <>
                 <Title style={{ textAlign: "right" }}>

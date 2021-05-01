@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Icon from "react-native-ionicons";
 import { useThemeContext, useAuthContext } from "../helpers/AppProvider";
 
-const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
+const LikeBtn = ({ liked = false, style = styled.View``, size, onLike }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -21,17 +21,18 @@ const LikeBtn = ({ liked = false, style = styled.View``, size }) => {
     }
 
     setIsLiked(!isLiked);
+    onLike(!isLiked);
     Animated.sequence([
       Animated.timing(pressAnim, {
         toValue: isLiked ? 0.9 : 2,
         duration: 200,
-        useNativeDriver: false,
+        useNativeDriver: false
       }),
       Animated.timing(pressAnim, {
         toValue: 0.9,
         duration: 100,
-        useNativeDriver: false,
-      }),
+        useNativeDriver: false
+      })
     ]).start();
   };
 

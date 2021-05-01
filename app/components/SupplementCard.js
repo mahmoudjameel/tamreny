@@ -61,12 +61,15 @@ const SupplementCard = ({ navigation, title, content, mainImage, _id }) => {
       useForeground
       onPress={() =>
         navigation.navigate("Supplement", {
-          _id,
+          _id
         })
       }
     >
       <Container>
-        <LikeBtn style={LikeBtnStyle} />
+        {
+          //  <LikeBtn style={LikeBtnStyle} />
+        }
+
         <ShareBtn style={ShareBtnStyle} />
         <ArticleImage source={{ uri: mainImage }} />
         <Title numberOfLines={1}>{title}</Title>

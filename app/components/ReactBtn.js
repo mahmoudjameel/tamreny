@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
-  Animated,
+  Animated
 } from "react-native";
 import styled from "styled-components";
 import LikeBtn from "./LikeBtn";
@@ -26,20 +26,20 @@ const ReactBtn = ({ customStyle = {} }) => {
       Animated.spring(pressAnim1, {
         toValue: expanded ? 10 : 75,
         duration: 400,
-        useNativeDriver: false,
+        useNativeDriver: false
       }),
 
       Animated.spring(pressAnim2, {
         toValue: expanded ? 10 : 145,
         duration: 400,
-        useNativeDriver: false,
+        useNativeDriver: false
       }),
 
       Animated.spring(pressAnim3, {
         toValue: expanded ? 10 : 215,
         duration: 400,
-        useNativeDriver: false,
-      }),
+        useNativeDriver: false
+      })
     ]).start();
   };
   /******************************************************/
@@ -59,17 +59,17 @@ const ReactBtn = ({ customStyle = {} }) => {
   `;
 
   const Circle = styled.View`
-    width: ${(props) => props.size || 70}px;
-    height: ${(props) => props.size || 70}px;
-    border-radius: ${(props) => props.size / 2 || 35}px;
+    width: ${props => props.size || 70}px;
+    height: ${props => props.size || 70}px;
+    border-radius: ${props => props.size / 2 || 35}px;
     border: 1px solid ${Colors.black + "11"};
-    background-color: ${(props) => props.color || Colors.primary};
+    background-color: ${props => props.color || Colors.primary};
     align-items: center;
     justify-content: center;
-    elevation: ${(props) => (props.shadow ? 8 : 0)};
+    elevation: ${props => (props.shadow ? 8 : 0)};
     overflow: hidden;
     z-index: 2;
-    background-color: ${(props) => props.color || Colors.primary};
+    background-color: ${props => props.color || Colors.primary};
   `;
 
   const SmallCircle = styled.View`
