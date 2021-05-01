@@ -8,7 +8,13 @@ import { useThemeContext } from "../helpers/AppProvider";
 
 const GymCard = ({
   navigation,
-  images = ["http://i3.ytimg.com/vi/erLk59H86ww/maxresdefault.jpg"],
+  _id,
+  name,
+  city,
+  brief,
+  subscriptions,
+  images,
+  dis
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -75,7 +81,7 @@ const GymCard = ({
   return (
     <TouchableNativeFeedback
       useForeground
-      onPress={() => navigation.navigate("Gym", { _id: 1 })}
+      onPress={() => navigation.navigate("Gym", { _id: _id, dis })}
     >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
@@ -83,7 +89,7 @@ const GymCard = ({
         <SliderContainer>
           <Image
             source={{
-              uri: images[0],
+              uri: images[0]
             }}
             style={{ width: "100%", height: "100%", resizeMode: "cover" }}
           />
@@ -91,18 +97,18 @@ const GymCard = ({
         <RowContainer style={{ marginTop: 10, marginLeft: 15 }}>
           <RowContainer style={{ justifyContent: "flex-start", width: "60%" }}>
             <SmallImage source={require("../assets/img/name-sign.png")} />
-            <Title numberOfLines={1}>قاعة بغداد</Title>
+            <Title numberOfLines={1}>{name}</Title>
           </RowContainer>
           <RowContainer>
             <SmallImage source={require("../assets/img/location.png")} />
-            <NormalText numberOfLines={1}>بغداد</NormalText>
+            <NormalText numberOfLines={1}>{city}</NormalText>
           </RowContainer>
         </RowContainer>
         <RowContainer style={{ marginTop: 10, marginLeft: 15 }}>
           <RowContainer style={{ justifyContent: "flex-start", width: "60%" }}>
             <SmallImage source={require("../assets/img/price.png")} />
             <NormalText numberOfLines={1} style={{ maxWidth: "90%" }}>
-              يومي ، اسبوعي ، شهري
+              {subscriptions.map(tag => tag.name).join(", ")}
             </NormalText>
           </RowContainer>
           <RowContainer>
@@ -110,7 +116,7 @@ const GymCard = ({
               source={require("../assets/img/distance.png")}
               style={{ height: 25, width: 25 }}
             />
-            <NormalText numberOfLines={1}>غير معروف</NormalText>
+            <NormalText numberOfLines={1}>{Math.round(dis)}</NormalText>
           </RowContainer>
         </RowContainer>
       </Container>
