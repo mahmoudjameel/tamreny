@@ -24,7 +24,6 @@ const Supplement = props => {
     try {
       let response = await axios.post(`${API_URL}/proteins/get`, { _id });
       let data = await response.data;
-      console.log("data", data);
 
       if (data.status) {
         setArticle(data.proteins[0]);

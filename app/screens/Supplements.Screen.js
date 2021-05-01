@@ -20,7 +20,6 @@ const Supplements = props => {
     try {
       let response = await axios.post(`${API_URL}/proteins/get`);
       let data = await response.data;
-      console.log("data", data);
 
       if (data.status) {
         setSupplements(data.proteins);
