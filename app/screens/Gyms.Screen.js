@@ -31,7 +31,6 @@ const Gyms = props => {
         lat: location.coords.latitude
       });
       let data = await response.data;
-      console.log("data", data);
 
       if (data.status) {
         setHalls(data.halls);
