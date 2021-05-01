@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "tamreny",
+    "slug": "tamreny",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/main-img/icon.png",
+    "splash": {
+      "image": "./app/assets/main-img/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.tamreny.app"
+    },
+    "web": {
+      "favicon": "./app/assets/main-img/favicon.png"
+    }
+  }
+}
