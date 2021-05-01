@@ -61,14 +61,14 @@ const ArticleCard = ({ navigation, article }) => {
       useForeground
       onPress={() =>
         navigation.navigate("Article", {
-          articleObj: article,
+          articleObj: article
         })
       }
     >
       <Container>
         <LikeBtn style={LikeBtnStyle} />
         <ShareBtn style={ShareBtnStyle} />
-        <ArticleImage source={{ uri: article.mainImage }} />
+        <ArticleImage source={{ uri: article.mainImage[0] }} />
         <Title numberOfLines={1}>{article.title}</Title>
         <Description numberOfLines={2}>{article.content}</Description>
       </Container>
