@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Header, ChangeColor } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
 
-const Home = (props) => {
+const Home = props => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -137,7 +137,7 @@ const Home = (props) => {
               <CardTitle>متجر المنتجات</CardTitle>
               <TouchableNativeFeedback
                 useForeground
-                onPress={() => props.navigation.navigate("Products")}
+                onPress={() => props.navigation.navigate("ProductsCategories")}
               >
                 <CardBtn>
                   <CardBtnText>اشتري الأن</CardBtnText>
@@ -152,7 +152,7 @@ const Home = (props) => {
                 () =>
                   props.navigation.navigate("Exercises", {
                     type: 2,
-                    name: "تمارين رياضية",
+                    name: "تمارين رياضية"
                   }) //type = 2 => Video Exercises
               }
             >
@@ -176,7 +176,7 @@ const Home = (props) => {
                 () =>
                   props.navigation.navigate("ExercisesCats", {
                     type: 1,
-                    title: "تمارين جاهزة",
+                    title: "تمارين جاهزة"
                   }) //type = 1 => Image Exercises
               }
             >

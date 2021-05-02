@@ -6,12 +6,13 @@ import { Header } from "../components/index";
 import { ProductCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Products = props => {
+const Products = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
   const { setIsLoading } = useAppContext();
-
+  //get category id
+  const category = props.route.params.category;
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -22,9 +23,10 @@ const Products = props => {
   const getProducts = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.post(`${API_URL}/products/get`);
+      let response = await axios.post(`${API_URL}/products/get/category`, {
+        categoryId: category._id,
+      });
       let data = await response.data;
-
       if (data.status) {
         setProducts(data.products);
       } else {
@@ -41,7 +43,7 @@ const Products = props => {
 
   return (
     <>
-      <Header {...props} title="متجر المنتجات" backBtnEnabled />
+      <Header {...props} title={category.title} backBtnEnabled />
       <MainContainer bgColor={Colors.white}>
         <SearchBtn
           style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
@@ -50,13 +52,13 @@ const Products = props => {
         <ScrollContainer bgColor={Colors.white}>
           <Container bgColor={Colors.white}>
             {products.filter(
-              product =>
+              (product) =>
                 product.title.includes(searchQuery) ||
                 product.description.includes(searchQuery)
             ).length != 0 ? (
               products
                 .filter(
-                  product =>
+                  (product) =>
                     product.title.includes(searchQuery) ||
                     product.description.includes(searchQuery)
                 )
@@ -74,18 +76,18 @@ const Products = props => {
 };
 
 const ScrollContainer = styled.ScrollView`
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   min-height: 100%;
 `;
 
 const MainContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
 `;
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   padding: 20px 15px;
 `;
 
@@ -93,7 +95,7 @@ const NormalText = styled.Text`
   font-family: Cairo-Regular;
   font-size: 20px;
   margin-top: 10px;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   text-align: center;
 `;
 export default Products;

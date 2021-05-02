@@ -14,4 +14,5 @@ export { default as ChangeColor } from "./ChangeColor";
 export { default as MustLogin } from "./MustLogin";
 export { default as SupplementCard } from "./SupplementCard";
 export { default as ProductCard } from "./ProductCard";
+export { default as ProductCategoryCard } from "./ProductCategoryCard";
 export { default as ConfirmBuy } from "./ConfirmBuy";

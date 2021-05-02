@@ -9,7 +9,7 @@ import { API_URL } from "../settings/Config";
 import { Header, ReactBtn, ConfirmBuy } from "../components";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Product = props => {
+const Product = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -30,7 +30,7 @@ const Product = props => {
     try {
       // setIsLoading(true);
       let response = await axios.post(`${API_URL}/products/get`, {
-        _id: productObj._id
+        _id: productObj._id,
       });
       let data = await response.data;
 
@@ -46,7 +46,7 @@ const Product = props => {
     }
   };
 
-  const formatTime = time => {
+  const formatTime = (time) => {
     let days = new Date(time).getDate();
     let month = new Date(time).getMonth() + 1;
     let year = new Date(time).getFullYear();
@@ -149,7 +149,7 @@ const Product = props => {
     <>
       <Header {...props} title={product.title} backBtnEnabled />
       <ReactBtn customStyle={{ bottom: 90 }} />
-      {confirmBoxVisible && (
+      {!!confirmBoxVisible && (
         <ConfirmBuy setConfirmBoxVisible={setConfirmBoxVisible} {...props} />
       )}
       <ScrollContainer>
@@ -164,7 +164,7 @@ const Product = props => {
             </MainImageContainer>
             <Title style={{ textAlign: "right" }}>التفاصيل</Title>
             <Autolink text={product.description} component={Content} />
-            {product.coachBrief && (
+            {!!product.coachBrief && (
               <>
                 <Title style={{ textAlign: "right" }}>
                   السيرة الذاتية للكوتش

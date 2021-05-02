@@ -1,16 +1,12 @@
 // @ts-nocheck
 import React from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Text } from "react-native";
 import styled from "styled-components";
-import ShareBtn from "./ShareBtn";
-import LikeBtn from "./LikeBtn";
 import { useThemeContext } from "../helpers/AppProvider";
 
 const ProductCard = ({ navigation, product }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
-
-  /******************************************************/
 
   const Container = styled.View`
     width: 100%;
@@ -42,18 +38,6 @@ const ProductCard = ({ navigation, product }) => {
     margin: 0px 12px 5px 30px;
     color: ${Colors.darkGray};
   `;
-
-  const LikeBtnStyle = styled.View`
-    position: absolute;
-    z-index: 5;
-    top: 10px;
-    right: 10px;
-  `;
-
-  const ShareBtnStyle = styled(LikeBtnStyle)`
-    left: 10px;
-  `;
-
   const PriceContainer = styled.View`
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -75,21 +59,16 @@ const ProductCard = ({ navigation, product }) => {
     font-size: 18px;
   `;
 
-  /******************************************************/
-
   return (
     <TouchableNativeFeedback
       useForeground
       onPress={() =>
         navigation.navigate("Product", {
-          productObj: product
+          productObj: product,
         })
       }
     >
       <Container>
-        {
-          //<LikeBtn style={LikeBtnStyle} />
-        }
         <PriceContainer>
           <PriceText>{product.price} د.ع</PriceText>
         </PriceContainer>

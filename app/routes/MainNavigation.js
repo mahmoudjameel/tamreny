@@ -16,6 +16,7 @@ import {
   Supplements,
   Supplement,
   Products,
+  ProductsCategories,
   Product,
   Order,
   Orders,
@@ -29,7 +30,7 @@ const MainNavigation = () => {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerShown: false,
+        headerShown: false
       }}
     >
       <Stack.Screen name="Home" component={Home} />
@@ -48,6 +49,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Supplements" component={Supplements} />
       <Stack.Screen name="Supplement" component={Supplement} />
       <Stack.Screen name="Products" component={Products} />
+      <Stack.Screen name="ProductsCategories" component={ProductsCategories} />
       <Stack.Screen name="Product" component={Product} />
       <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="Orders" component={Orders} />
