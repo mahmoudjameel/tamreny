@@ -7,13 +7,18 @@ import axios from "axios";
 import Icon from "react-native-ionicons";
 import { API_URL } from "../settings/Config";
 import { Header, ReactBtn, ConfirmBuy } from "../components";
-import { useThemeContext, useAppContext } from "../helpers/AppProvider";
+import {
+  useThemeContext,
+  useAppContext,
+  useAuthContext,
+} from "../helpers/AppProvider";
 
 const Product = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
   const { setIsLoading } = useAppContext();
+  const { isLoggedIn, setForceLogin } = useAuthContext();
 
   //Set the article data from params
   const { productObj } = props.route.params;
@@ -25,6 +30,14 @@ const Product = (props) => {
     setProduct(productObj);
     getArticle();
   }, []);
+
+  const handlePay = () => {
+    if (isLoggedIn) {
+      setConfirmBoxVisible(true);
+    } else {
+      setForceLogin(true);
+    }
+  };
 
   const getArticle = async () => {
     try {
@@ -150,7 +163,11 @@ const Product = (props) => {
       <Header {...props} title={product.title} backBtnEnabled />
       <ReactBtn customStyle={{ bottom: 90 }} />
       {!!confirmBoxVisible && (
-        <ConfirmBuy setConfirmBoxVisible={setConfirmBoxVisible} {...props} />
+        <ConfirmBuy
+          setConfirmBoxVisible={setConfirmBoxVisible}
+          {...props}
+          product={product}
+        />
       )}
       <ScrollContainer>
         <MainContainer>
@@ -175,7 +192,7 @@ const Product = (props) => {
           </Container>
         </MainContainer>
       </ScrollContainer>
-      <TouchableNativeFeedback onPress={() => setConfirmBoxVisible(true)}>
+      <TouchableNativeFeedback onPress={() => handlePay()}>
         <BuyBtn>
           <BuyBtnText>اشتري</BuyBtnText>
           <Icon name="cart" size={34} color={Colors.white} />
