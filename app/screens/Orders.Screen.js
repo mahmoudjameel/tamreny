@@ -9,119 +9,25 @@ import { useThemeContext } from "../helpers/AppProvider";
 const Orders = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
+  const [orders, setOrders] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getOrders();
+  }, []);
 
-  const orders = [
-    {
-      _id: 1,
-      statusId: 1,
-      product: {
-        title: "هذا يعتبر اسم المنتج ولا يمكن تغييره أبدا",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-    {
-      _id: 2,
-      statusId: 2,
-      product: {
-        title: "هذا يعتبر اسم المنتج",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-    {
-      _id: 3,
-      statusId: 3,
-      product: {
-        title: "هذا يعتبر اسم المنتج",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-    {
-      _id: 4,
-      statusId: 2,
-      product: {
-        title: "هذا يعتبر اسم المنتج",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-    {
-      _id: 5,
-      statusId: 1,
-      product: {
-        title: "هذا يعتبر اسم المنتج",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-    {
-      _id: 6,
-      statusId: 3,
-      product: {
-        title: "هذا يعتبر اسم المنتج",
-        price: 250,
-        description: "هذا هو وصف المنتج",
-        coachBrief: "هذا وصف للكوتش",
-        mainImage:
-          "https://images.pexels.com/photos/6659552/pexels-photo-6659552.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      paymentMethod: {
-        name: "Paypal",
-        description: `يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-        \nelashmawydev@gmail.com\nوبعد التحويل يرجي ارفاق صورة من
-        المعاملة وسوف نقوم بمراسلتك لتسليم المنتج`,
-      },
-    },
-  ];
+  const getOrders = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/orders/get`);
+      let data = await response.data;
+      if (data.status) {
+        setOrders(data.orders);
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   /******************************************************/
 
@@ -243,7 +149,7 @@ const Orders = (props) => {
           renderItem={({ item }) => (
             <CardContainer>
               <PriceContainer>
-                <PriceText>{item.product.price} د.ع</PriceText>
+                <PriceText>{item.productId.price} د.ع</PriceText>
               </PriceContainer>
               <StatusCotnainer
                 color={
@@ -263,16 +169,22 @@ const Orders = (props) => {
                 </StatusText>
               </StatusCotnainer>
               <RowContainer>
-                <MainImage source={{ uri: item.product.mainImage }} />
+                <MainImage source={{ uri: item.productId.mainImage }} />
                 <DetailsContaienr>
                   <Title numberOfLines={1} style={{ maxWidth: 190 }}>
-                    {item.product.title}
+                    {item.productId.title}
                   </Title>
                   <NormalText>رقم الطلب {item._id}#</NormalText>
                 </DetailsContaienr>
               </RowContainer>
               <TouchableNativeFeedback
-                onPress={() => props.navigation.navigate("Order", item)}
+                onPress={() =>
+                  props.navigation.navigate("Order", {
+                    selectedMethod: item.paymentMethodId,
+                    product: item.productId,
+                    order: item,
+                  })
+                }
               >
                 <Btn>
                   <Title style={{ color: Colors.white }}>التفاصيل</Title>
