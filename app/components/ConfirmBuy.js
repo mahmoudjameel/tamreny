@@ -2,37 +2,67 @@ import React, { useState, useEffect } from "react";
 import { Modal, TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
 import { RadioButton } from "react-native-paper";
-import { useThemeContext } from "../helpers/AppProvider";
+import { useThemeContext, useAuthContext } from "../helpers/AppProvider";
+import axios from "axios";
+import { API_URL } from "../settings/Config";
 
 const ConfirmBuy = ({
   navigation,
-  title = "هنا يوضع عنوان المنتج",
-  price = 250,
+  product,
   setConfirmBoxVisible = (visible) => null,
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
+  const { user } = useAuthContext();
 
   const [isVisible, setIsVisible] = useState(true);
   const [selectedMethod, setSelectedMethod] = useState(0);
-  const [paymentMethods, setPaymentMethods] = useState([
-    {
-      _id: 1,
-      name: "زين كاش",
-    },
-    {
-      _id: 2,
-      name: "اسيا حوالة",
-    },
-    {
-      _id: 3,
-      name: "ماستر الرافدين",
-    },
-    {
-      _id: 4,
-      name: "بايبال",
-    },
-  ]);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+
+  useEffect(() => {
+    getPayementMethods();
+  }, []);
+
+  const getPayementMethods = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/paymentMethods/get`);
+      let data = await response.data;
+
+      if (data.status) {
+        setPaymentMethods(data.paymentMethods);
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  const createOrder = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/orders/add`, {
+        productId: product._id,
+        paymentMethodId: paymentMethods[selectedMethod]._id,
+        userId: user._id,
+        statusId: 1,
+      });
+      let data = await response.data;
+      if (data.status) {
+        let order = data.product;
+        setIsVisible(false);
+        setConfirmBoxVisible(false);
+        navigation.navigate("Order", {
+          selectedMethod: paymentMethods[selectedMethod],
+          order,
+          product,
+        });
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   /**************************************/
   const MainContainer = styled.View`
@@ -108,10 +138,10 @@ const ConfirmBuy = ({
         <Container>
           <Text>هل أنت متأكد من أنك تريد شراء</Text>
           <Text style={{ marginTop: 20, marginBottom: 30 }} font="Cairo-Bold">
-            {title}
+            {product?.title}
           </Text>
           <Text>
-            السعر <Text font="Cairo-Bold">{price}</Text> دينار عراقي
+            السعر <Text font="Cairo-Bold">{product?.price}</Text> دينار عراقي
           </Text>
           <Line />
           <Text>وسائل الدفع المتاحة</Text>
@@ -132,10 +162,8 @@ const ConfirmBuy = ({
           <RowContainer style={{ justifyContent: "space-between" }}>
             <TouchableNativeFeedback
               useForeground
-              onPress={() => {
-                setIsVisible(false);
-                setConfirmBoxVisible(false);
-                navigation.navigate("Order");
+              onPress={async () => {
+                await createOrder();
               }}
             >
               <Btn>
