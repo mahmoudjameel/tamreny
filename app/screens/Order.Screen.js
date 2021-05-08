@@ -1,26 +1,78 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Image } from "react-native";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import * as MediaLibrary from "expo-media-library";
 
 const Order = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
+  const [imagebase64, setImageBase64] = useState(null);
 
-  useEffect(() => {}, []);
+  const selectedMethod = props?.route?.params?.selectedMethod;
+  const product = props?.route?.params?.product;
+  const order = props?.route?.params?.order;
+  const [image, setImage] = useState(null);
 
-  const formatTime = (time) => {
-    let days = new Date(time).getDate();
-    let month = new Date(time).getMonth() + 1;
-    let year = new Date(time).getFullYear();
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status: cameraPerm } = await Permissions.askAsync(
+          Permissions.CAMERA
+        );
 
-    return `${days}/${month}/${year}`;
+        const {
+          status: cameraRollPerm,
+        } = MediaLibrary.requestPermissionsAsync();
+
+        if (cameraPerm !== "granted" && cameraRollPerm !== "granted") {
+          alert("نحتاج صلاحية الوصول الى الصور من اجل ارفاق صورة الدفع");
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      base64: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    setImageBase64("data:image/jpg;base64," + result.base64);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
+  const onSavePhoto = async () => {
+    if (!imagebase64) {
+      alert("رجاءا اختر الصورة اولا");
+    }
+    try {
+      let response = await axios.post(`${API_URL}/orders/uploadImage`, {
+        paymentImage: imagebase64,
+        orderID: order._id,
+      });
+      let data = await response.data;
+      if (data.status) {
+        alert("تم رفع الصورة بنجاح");
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
   /******************************************************/
 
   const MainContainer = styled.View`
@@ -117,18 +169,24 @@ const Order = (props) => {
         <MainContainer>
           <Container>
             <NormalText center size={22} bold>
-              رقم الطلب 134#
+              رقم الطلب {order._id}#
             </NormalText>
             <RowContainer>
               <NormalText>حالة الطلب</NormalText>
               <Box>
-                <NormalText color={Colors.white}>لم يتم الدفع</NormalText>
+                <NormalText color={Colors.white}>
+                  {order.statusId == 1
+                    ? "لم يتم الدفع"
+                    : order.statusId == 2
+                    ? "تم الدفع"
+                    : "ملغي"}
+                </NormalText>
               </Box>
             </RowContainer>
             <RowContainer>
               <NormalText>وسيلة الدفع</NormalText>
               <NormalText style={{ width: "50%" }} bold center>
-                بايبال
+                {selectedMethod.name}
               </NormalText>
             </RowContainer>
             <Line />
@@ -138,7 +196,7 @@ const Order = (props) => {
             </NormalText>
 
             <NormalText style={{ marginTop: 15 }} center size={22} bold>
-              هنا يوضع عنوان المنتج
+              {product.title}
             </NormalText>
             <NormalText
               style={{ marginTop: 25, marginBottom: 15 }}
@@ -147,7 +205,7 @@ const Order = (props) => {
             >
               السعر{" "}
               <NormalText bold size={22}>
-                250{" "}
+                {product.price}{" "}
               </NormalText>
               دينار عراقي
             </NormalText>
@@ -156,18 +214,30 @@ const Order = (props) => {
               كيف يمكنني الدفع ؟
             </NormalText>
             <NormalText style={{ marginTop: 15 }} center>
-              يرجي تحويل مبلغ الطلب علي البريد الالكتروني التالي
-              {"\n"}elashmawydev@gmail.com{"\n"}وبعد التحويل يرجي ارفاق صورة من
-              المعاملة وسوف نقوم بمراسلتك لتسليم المنتج
+              {selectedMethod.description}
             </NormalText>
 
-            <TouchableNativeFeedback useForground onPress={() => null}>
+            <TouchableNativeFeedback useForground onPress={pickImage}>
               <Btn style={{ marginTop: 25 }} color={Colors.primary}>
                 <NormalText color={Colors.white}>
                   ارفاق صورة المعاملة
                 </NormalText>
               </Btn>
             </TouchableNativeFeedback>
+            {image && (
+              <>
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: 200, height: 200 }}
+                />
+                <TouchableNativeFeedback useForground onPress={onSavePhoto}>
+                  <Btn style={{ marginTop: 25 }} color={Colors.primary}>
+                    <NormalText color={Colors.white}>إرسال الصورة</NormalText>
+                  </Btn>
+                </TouchableNativeFeedback>
+              </>
+            )}
+
             <TouchableNativeFeedback useForground onPress={() => null}>
               <Btn color={Colors.red}>
                 <NormalText color={Colors.white}>الغاء الطلب</NormalText>
