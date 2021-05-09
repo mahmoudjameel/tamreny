@@ -13,18 +13,22 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.tamreny.app"
+      "package": "com.tamreny.app",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
+      }
     },
     "web": {
       "favicon": "./app/assets/main-img/favicon.png"

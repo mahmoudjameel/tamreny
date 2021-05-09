@@ -6,7 +6,7 @@ import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
 import { ArticleCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
-
+import { AdMobBanner } from "expo-ads-admob";
 const Articles = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -49,6 +49,11 @@ const Articles = (props) => {
           onSearch={setSearchQuery}
         />
         <ScrollContainer bgColor={Colors.white}>
+          <AdMobBanner
+            bannerSize="fullBanner"
+            adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+            servePersonalizedAds // true or false
+          />
           <Container bgColor={Colors.white}>
             {articles.filter(
               (article) =>

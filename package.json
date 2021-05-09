@@ -18,6 +18,7 @@
     "@styled-icons/bootstrap": "^10.19.0",
     "axios": "^0.21.1",
     "expo": "~39.0.2",
+    "expo-ads-admob": "~8.3.0",
     "expo-font": "^8.3.0",
     "expo-image-picker": "^10.1.4",
     "expo-location": "^11.0.0",

@@ -1,14 +1,41 @@
 // @ts-nocheck
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import styled from "styled-components";
-import { Header, ChangeColor } from "../components/index";
+import { Header, ChangeColor, ImageSlider } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
-
-const Home = props => {
+import axios from "axios";
+import { API_URL } from "../settings/Config";
+const Home = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
+  const [advertisements, setAdvertisements] = useState([]);
+  const [advertisementsImages, setAdvertisementsImages] = useState([]);
 
+  useEffect(() => {
+    getAdvertisements();
+  }, []);
+
+  const getAdvertisements = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/advertisements/get`);
+      let data = await response.data;
+      if (data.status) {
+        setAdvertisements(data.advertisements);
+        data.advertisements.map((item, i) => {
+          let images = advertisementsImages;
+          images.push(item.image);
+          setAdvertisementsImages(images);
+        });
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  //
   /******************************************************/
 
   const ScrollContainer = styled.ScrollView`
@@ -95,6 +122,16 @@ const Home = props => {
     color: ${Colors.black};
     text-align: center;
   `;
+  const MainImageContainer = styled.View`
+    border-radius: 12px;
+    elevation: 8;
+    border: 1px ${Colors.black + "11"};
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    margin: 0 0 25px;
+    background-color: ${Colors.primary};
+  `;
 
   /******************************************************/
   return (
@@ -102,6 +139,13 @@ const Home = props => {
       <Header {...props} title="الرئيسية" />
       <ScrollContainer>
         <Container>
+          <MainImageContainer>
+            <ImageSlider
+              width={"100%"}
+              height={"100%"}
+              images={advertisementsImages}
+            />
+          </MainImageContainer>
           <SmallCardsContainer>
             <TouchableNativeFeedback
               useForeground
@@ -152,7 +196,7 @@ const Home = props => {
                 () =>
                   props.navigation.navigate("Exercises", {
                     type: 2,
-                    name: "تمارين رياضية"
+                    name: "تمارين رياضية",
                   }) //type = 2 => Video Exercises
               }
             >
@@ -176,7 +220,7 @@ const Home = props => {
                 () =>
                   props.navigation.navigate("ExercisesCats", {
                     type: 1,
-                    title: "تمارين جاهزة"
+                    title: "تمارين جاهزة",
                   }) //type = 1 => Image Exercises
               }
             >
