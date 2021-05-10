@@ -17,7 +17,6 @@ const SelectInput = ({
   toggleSelection = () => null,
   selection,
 }) => {
-
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -93,7 +92,9 @@ const SelectInput = ({
                     value == index && styles.selectedOption,
                   ]}
                 >
-                  <Text style={styles.itemLabel}>{item.label}</Text>
+                  <Text style={styles.itemLabel}>
+                    {item.label || item.name}
+                  </Text>
                 </View>
                 {index != selection.length - 1 && (
                   <View style={styles.separator}></View>
