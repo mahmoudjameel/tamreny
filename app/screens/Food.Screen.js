@@ -1,39 +1,36 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Header, SelectInput } from "../components/index";
 import styled from "styled-components";
-import { RadioButton } from "react-native-paper";
 import { useThemeContext } from "../helpers/AppProvider";
-
+import axios from "axios";
+import { API_URL } from "../settings/Config";
 const Food = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  const [gender, setGender] = useState("male");
-  const [optionOne, setOptionOne] = useState(1);
-  const [optionTwo, setOptionTwo] = useState(1);
-  const [optionOneVisible, setOptionOneVisible] = useState(false);
+  const [optionTwo, setOptionTwo] = useState("");
+  const [weight, setWeight] = useState();
   const [optionTwoVisible, setOptionTwoVisible] = useState(false);
+  const [Nutritions, setNutritions] = useState([]);
+  useEffect(() => {
+    getNutritions();
+  }, []);
+  const getNutritions = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/Nutritions/get`);
+      let data = await response.data;
+      if (data.status) {
+        setNutritions(data.nutritions);
+      } else {
+        alert(data.errors);
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
-  const options = [
-    {
-      value: 1,
-      label: "اختيار 1",
-    },
-    {
-      value: 2,
-      label: "اختيار 2",
-    },
-    {
-      value: 3,
-      label: "اختيار 3",
-    },
-    {
-      value: 4,
-      label: "اختيار 4",
-    },
-  ];
   /******************************************************/
 
   const MainContainer = styled.View`
@@ -149,43 +146,24 @@ const Food = (props) => {
     <>
       <Header {...props} title="القيمة الغذائية" backBtnEnabled />
       <SelectInput
-        visible={optionOneVisible || optionTwoVisible}
-        value={optionOneVisible ? optionOne : optionTwo}
-        selection={options}
-        onSelectValue={(value) =>
-          optionOneVisible ? setOptionOne(value) : setOptionTwo(value)
-        }
-        toggleSelection={() =>
-          optionOneVisible
-            ? setOptionOneVisible(!optionOneVisible)
-            : setOptionTwoVisible(!optionTwoVisible)
-        }
+        visible={optionTwoVisible}
+        value={optionTwo}
+        selection={Nutritions}
+        onSelect={(value) => {
+          setOptionTwo(value);
+        }}
+        toggleSelection={() => setOptionTwoVisible(!optionTwoVisible)}
       />
       <ScrollContainer>
         <MainContainer>
           <Container>
             <RowContainer>
               <TouchableNativeFeedback
-                onPress={() => setOptionOneVisible(!optionOneVisible)}
-                useForeground
-              >
-                <SelectRounded>
-                  <NormalText>
-                    {options.find((option) => option.value == optionOne).label}
-                  </NormalText>
-                  <SelectArrow />
-                </SelectRounded>
-              </TouchableNativeFeedback>
-            </RowContainer>
-            <RowContainer>
-              <TouchableNativeFeedback
                 onPress={() => setOptionTwoVisible(!optionTwoVisible)}
                 useForeground
               >
                 <SelectRounded style={{ width: "60%" }}>
-                  <NormalText>
-                    {options.find((option) => option.value == optionTwo).label}
-                  </NormalText>
+                  <NormalText>{Nutritions[optionTwo]?.name}</NormalText>
                   <SelectArrow />
                 </SelectRounded>
               </TouchableNativeFeedback>
@@ -194,17 +172,19 @@ const Food = (props) => {
                   placeholder="الوزن"
                   keyboardType="number-pad"
                   style={{ width: "80%" }}
+                  value={weight}
+                  onChangeText={(value) => setWeight(value)}
                 />
-                <InputDesc>كجم</InputDesc>
+                <InputDesc>غرام</InputDesc>
               </RoundedInput>
             </RowContainer>
-            <RowContainer>
+            {/* <RowContainer>
               <TouchableNativeFeedback onPress={() => null} useForeground>
                 <CalculateBtn>
                   <Title style={{ color: Colors.white }}>احسب</Title>
                 </CalculateBtn>
               </TouchableNativeFeedback>
-            </RowContainer>
+            </RowContainer> */}
             <LineSeparator />
             <RowContainer style={{ marginTop: 40, marginBottom: 5 }}>
               <BoldText>المغذيات</BoldText>
@@ -212,22 +192,22 @@ const Food = (props) => {
             </RowContainer>
             <RowContainer style={{ marginBottom: 5 }}>
               <Title>طاقة</Title>
-              <ResultText>105</ResultText>
+              <ResultText>{Nutritions[optionTwo]?.energy * weight}</ResultText>
               <NormalText>كالوري</NormalText>
             </RowContainer>
             <RowContainer style={{ marginBottom: 5 }}>
               <Title>بروتين</Title>
-              <ResultText>53</ResultText>
+              <ResultText>{Nutritions[optionTwo]?.protein * weight}</ResultText>
               <NormalText>غرام</NormalText>
             </RowContainer>
             <RowContainer style={{ marginBottom: 5 }}>
               <Title>دهون</Title>
-              <ResultText>25</ResultText>
+              <ResultText>{Nutritions[optionTwo]?.fat * weight}</ResultText>
               <NormalText>غرام</NormalText>
             </RowContainer>
             <RowContainer style={{ marginBottom: 5 }}>
               <Title>كربوهيدرات</Title>
-              <ResultText>43</ResultText>
+              <ResultText>{Nutritions[optionTwo]?.carbs * weight}</ResultText>
               <NormalText>غرام</NormalText>
             </RowContainer>
           </Container>
