@@ -10,7 +10,7 @@ const Food = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
-  const [optionTwo, setOptionTwo] = useState("");
+  const [optionTwo, setOptionTwo] = useState(1);
   const [weight, setWeight] = useState();
   const [optionTwoVisible, setOptionTwoVisible] = useState(false);
   const [Nutritions, setNutritions] = useState([]);
