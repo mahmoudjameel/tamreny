@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tamreny",
-    "slug": "tamreny",
+    "name": "tamrini",
+    "slug": "tamrini",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/main-img/icon.png",
@@ -16,8 +16,13 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.tamrini.app",
+      "buildNumber": "1.0.0",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+        "googleMobileAdsAppId": "ca-app-pub-2927383253903778~3597160507"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need to know your current location to find the near places. Do you allow us to use location service on this device ?"
       }
     },
     "android": {
@@ -25,10 +30,17 @@
         "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.tamreny.app",
+      "package": "com.tamrini.app",
+      "versionCode": 1,
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
-      }
+        "googleMobileAdsAppId": "ca-app-pub-2927383253903778~1737283929"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./app/assets/main-img/favicon.png"

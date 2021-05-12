@@ -139,13 +139,16 @@ const Home = (props) => {
       <Header {...props} title="الرئيسية" />
       <ScrollContainer>
         <Container>
-          <MainImageContainer>
-            <ImageSlider
-              width={"100%"}
-              height={"100%"}
-              images={advertisementsImages}
-            />
-          </MainImageContainer>
+          {advertisementsImages && (
+            <MainImageContainer>
+              <ImageSlider
+                width={"100%"}
+                height={"100%"}
+                images={advertisementsImages}
+              />
+            </MainImageContainer>
+          )}
+
           <SmallCardsContainer>
             <TouchableNativeFeedback
               useForeground
