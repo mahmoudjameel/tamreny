@@ -1,7 +1,7 @@
 export const API_URL = __DEV__
-  ? "http://192.168.1.104:5000/api"
-  : "https://tamreny.herokuapp.com/api";
+  ? "https://tamrini.com/api"
+  : "https://tamrini.com/api";
 
 export const YOUTUBE_PLAYER = __DEV__
-  ? "http://192.168.1.104:5000/play-youtube?videoId="
-  : "https://tamreny.herokuapp.com/play-youtube?videoId=";
+  ? "https://tamrini.com/play-youtube?videoId="
+  : "https://tamrini.com/api/play-youtube?videoId=";
