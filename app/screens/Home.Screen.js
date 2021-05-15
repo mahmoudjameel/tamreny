@@ -28,7 +28,7 @@ const Home = (props) => {
           setAdvertisementsImages(images);
         });
       } else {
-        alert(data.errors);
+        //alert(data.errors);
       }
     } catch (e) {
       alert(e.message);
@@ -139,7 +139,7 @@ const Home = (props) => {
       <Header {...props} title="الرئيسية" />
       <ScrollContainer>
         <Container>
-          {advertisementsImages && (
+          {advertisementsImages.length > 0 && (
             <MainImageContainer>
               <ImageSlider
                 width={"100%"}
@@ -199,13 +199,13 @@ const Home = (props) => {
                 () =>
                   props.navigation.navigate("Exercises", {
                     type: 2,
-                    name: "تمارين رياضية",
+                    name: "إبحث عن تمرينك",
                   }) //type = 2 => Video Exercises
               }
             >
               <SmallCard>
                 <SmallImage source={require("../assets/img/strength.png")} />
-                <CardText>تمارين{"\n"}رياضية</CardText>
+                <CardText>إبحث عن{"\n"}تمرينك</CardText>
               </SmallCard>
             </TouchableNativeFeedback>
             <TouchableNativeFeedback
