@@ -7,7 +7,7 @@ import { API_URL } from "../settings/Config";
 import { Header, ReactBtn, ImageSlider } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 
-const Article = props => {
+const Article = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -27,7 +27,7 @@ const Article = props => {
     try {
       // setIsLoading(true);
       let response = await axios.post(`${API_URL}/articles/get`, {
-        _id: articleObj._id
+        _id: articleObj._id,
       });
       let data = await response.data;
 
@@ -43,7 +43,7 @@ const Article = props => {
     }
   };
 
-  const formatTime = time => {
+  const formatTime = (time) => {
     let days = new Date(time).getDate();
     let month = new Date(time).getMonth() + 1;
     let year = new Date(time).getFullYear();
@@ -127,7 +127,7 @@ const Article = props => {
                 borderBottomWidth: 2,
                 borderBottomColor: Colors.darkGray,
                 borderRadius: 50,
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               تاريخ النشر :{" "}
