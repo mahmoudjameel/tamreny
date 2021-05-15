@@ -91,7 +91,6 @@ const CustomDrawer = (props = { navigation }) => {
     width: 190px;
     height: 190px;
     border-radius: ${250 / 2}px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
   `;
 
   const BtnsContainer = styled.View`
