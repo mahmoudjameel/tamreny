@@ -89,14 +89,17 @@ const Settings = (props) => {
               style={{ textAlign: "center", fontSize: 16, marginTop: "auto" }}
             >
               جميع الحقوق محفوظة {"\n"}
-              Tamreny © 2020{"\n"}
+              Tamreny © {new Date().getFullYear()}
+              {"\n"}
               تم تصميم وتطوير التطبيق بواسطة{"\n"}
               <NormalText
                 color={Colors.darkGray}
                 style={{ color: Colors.green }}
-                onPress={() => Linking.openURL("https://elashmawydev.com")}
+                onPress={() =>
+                  Linking.openURL("https://www.facebook.com/jamalhassouni.18")
+                }
               >
-                ELASHMAWY DEV
+                Jamal Hassouni
               </NormalText>
             </NormalText>
           </Container>
