@@ -85,7 +85,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              مزاجي مش رايق
+              أخضر
             </FaceText>
           </FaceContainer>
           <FaceContainer upper>
@@ -103,7 +103,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              مبسوط
+              أصفر
             </FaceText>
           </FaceContainer>
           <FaceContainer>
@@ -121,7 +121,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              ساد ورب العباد
+              رمادي
             </FaceText>
           </FaceContainer>
         </RowContainer>
@@ -141,11 +141,11 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              ناوي أخربها
+              سمائي
             </FaceText>
           </FaceContainer>
           <BigCircle bgColor={Colors.lightGray}>
-            <BigText color={Colors.darkGray}>أُظبط مزاجك</BigText>
+            <BigText color={Colors.darkGray}>إختر لونك</BigText>
           </BigCircle>
           <FaceContainer>
             <TouchableNativeFeedback
@@ -162,7 +162,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              خايف
+              رصاصي
             </FaceText>
           </FaceContainer>
         </RowContainer>
@@ -184,7 +184,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              طالع عيني
+              برتقالي
             </FaceText>
           </FaceContainer>
           <FaceContainer lower>
@@ -202,7 +202,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              واقع علي شوشتي
+              وردي
             </FaceText>
           </FaceContainer>
           <FaceContainer>
@@ -220,7 +220,7 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
               </ImageContainer>
             </TouchableNativeFeedback>
             <FaceText color={Colors.white} numberOfLines={1}>
-              غضبان
+              أحمر
             </FaceText>
           </FaceContainer>
         </RowContainer>
