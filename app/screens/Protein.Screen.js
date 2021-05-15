@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TouchableNativeFeedback, TextInput } from "react-native";
 import { Header, SelectInput } from "../components/index";
 import styled from "styled-components";
@@ -10,9 +10,7 @@ const Protein = (props) => {
   let Colors = Theme.Colors;
 
   const [gender, setGender] = useState("male");
-  const [selectedOptionOne, setSelectedOptionOne] = useState(0);
   const [selectedOptionTwo, setSelectedOptionTwo] = useState(0);
-  const [optionOneVisible, setOptionOneVisible] = useState(false);
   const [optionTwoVisible, setOptionTwoVisible] = useState(false);
   const [resultObj, setResultObj] = useState({
     calories: 0,
@@ -27,25 +25,6 @@ const Protein = (props) => {
     weight: "",
   });
 
-  const optionsOne = [
-    {
-      value: 0,
-      label: "ما هو مستوي نشاطك ؟",
-    },
-    {
-      value: 12,
-      label: "قليلا ما أتمرن",
-    },
-    {
-      value: 15,
-      label: "أتمرن بشكل متوسط",
-    },
-    {
-      value: 17,
-      label: "كثيرا ما أتمرن",
-    },
-  ];
-
   const optionsTwo = [
     {
       value: 0,
@@ -57,6 +36,7 @@ const Protein = (props) => {
         proteins: 0.5,
         fats: 0.2,
       },
+      x: 13,
       label: "إنقاص الوزن",
     },
     {
@@ -65,14 +45,16 @@ const Protein = (props) => {
         proteins: 0.4,
         fats: 0.2,
       },
+      x: 15,
       label: "المحافظة علي الوزن",
     },
     {
       value: {
         carbohydrates: 0.5,
-        proteins: 0.45,
-        fats: 0.05,
+        proteins: 0.4,
+        fats: 0.1,
       },
+      x: 17,
       label: "زيادة الوزن",
     },
   ];
@@ -81,24 +63,26 @@ const Protein = (props) => {
     try {
       //Validation
       if (!inputsObj.weight) return alert("يجب كتابة الوزن بالكيلو جرام");
-      if (selectedOptionOne == 0) return alert("يجب اختيار مستوي نشاطك");
       if (selectedOptionTwo == 0) return alert("يجب اختيار الغرض من التمرين");
 
       //Get Calories
-      let calories = +(
-        +inputsObj.weight *
+      let calories = (
+        inputsObj.weight *
         2.2 *
-        optionsOne[selectedOptionOne].value
+        optionsTwo[selectedOptionTwo].x
       ).toFixed(1);
-      let carbohydrates = +(
-        calories * optionsTwo[selectedOptionTwo].value.carbohydrates
-      ).toFixed(1); //Get weight in pounds
-      let proteins = +(
-        calories * optionsTwo[selectedOptionTwo].value.proteins
-      ).toFixed(1); //Get weight in pounds
-      let fats = +(calories * optionsTwo[selectedOptionTwo].value.fats).toFixed(
-        1
-      ); //Get weight in pounds
+      let carbohydrates = (
+        (calories * optionsTwo[selectedOptionTwo].value.carbohydrates) /
+        4
+      ).toFixed(1); //Get carbohydrates in gram
+      let proteins = (
+        (calories * optionsTwo[selectedOptionTwo].value.proteins) /
+        4
+      ).toFixed(1); //Get protiens in gram
+      let fats = (
+        (calories * optionsTwo[selectedOptionTwo].value.fats) /
+        9
+      ).toFixed(1); //Get fats in gram
 
       setResultObj({ ...resultObj, calories, carbohydrates, proteins, fats });
     } catch (e) {
@@ -113,19 +97,11 @@ const Protein = (props) => {
     <>
       <Header {...props} title="حاسبة البروتينات" backBtnEnabled />
       <SelectInput
-        visible={optionOneVisible || optionTwoVisible}
-        value={optionOneVisible ? selectedOptionOne : selectedOptionTwo}
-        selection={optionOneVisible ? optionsOne : optionsTwo}
-        onSelect={(index) =>
-          optionOneVisible
-            ? setSelectedOptionOne(index)
-            : setSelectedOptionTwo(index)
-        }
-        toggleSelection={() =>
-          optionOneVisible
-            ? setOptionOneVisible(!optionOneVisible)
-            : setOptionTwoVisible(!optionTwoVisible)
-        }
+        visible={optionTwoVisible}
+        value={selectedOptionTwo}
+        selection={optionsTwo}
+        onSelect={(index) => setSelectedOptionTwo(index)}
+        toggleSelection={() => setOptionTwoVisible(!optionTwoVisible)}
       />
       <ScrollContainer>
         <MainContainer>
@@ -200,25 +176,7 @@ const Protein = (props) => {
                 <InputDesc color={Colors.black}>كجم</InputDesc>
               </RoundedInput>
             </RowContainer>
-            <RowContainer>
-              <TouchableNativeFeedback
-                onPress={() => setOptionOneVisible(!optionOneVisible)}
-                useForeground
-              >
-                <SelectRounded
-                  borderColor={Colors.black + "11"}
-                  bgColor={Colors.lightGray}
-                >
-                  <NormalText color={Colors.black}>
-                    {
-                      optionsOne.find((option, i) => i == selectedOptionOne)
-                        .label
-                    }
-                  </NormalText>
-                  <SelectArrow borderColor={Colors.black} />
-                </SelectRounded>
-              </TouchableNativeFeedback>
-            </RowContainer>
+
             <RowContainer>
               <TouchableNativeFeedback
                 onPress={() => setOptionTwoVisible(!optionTwoVisible)}
