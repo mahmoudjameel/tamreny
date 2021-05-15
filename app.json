@@ -16,7 +16,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tamrini.app",
+      "bundleIdentifier": "com.tamrini.com",
       "buildNumber": "1.0.0",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~3597160507"
@@ -30,7 +30,7 @@
         "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.tamrini.app",
+      "package": "com.tamrini.com",
       "versionCode": 1,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~1737283929"
