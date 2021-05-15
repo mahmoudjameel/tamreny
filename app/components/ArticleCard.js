@@ -32,11 +32,10 @@ const ArticleCard = ({ navigation, article }) => {
           setLike(false);
         }
       }
-      console.log("userData", user);
     };
     fetchData();
   }, []);
-  const onLike = async value => {
+  const onLike = async (value) => {
     if (!isLoggedIn) {
       setForceLogin(true);
       return;
@@ -46,7 +45,7 @@ const ArticleCard = ({ navigation, article }) => {
         `${API_URL}/users/like`,
         {
           type: "article",
-          articleId: article._id
+          articleId: article._id,
         }
         //{ headers: { Authorization: `Bearer ${accessToken}` } }
       );
@@ -111,7 +110,7 @@ const ArticleCard = ({ navigation, article }) => {
       useForeground
       onPress={() =>
         navigation.navigate("Article", {
-          articleObj: article
+          articleObj: article,
         })
       }
     >
