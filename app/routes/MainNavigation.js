@@ -20,7 +20,9 @@ import {
   Product,
   Order,
   Orders,
-  Settings
+  Settings,
+  About,
+  ContactUS,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -30,7 +32,7 @@ const MainNavigation = () => {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
     >
       <Stack.Screen name="Home" component={Home} />
@@ -54,6 +56,8 @@ const MainNavigation = () => {
       <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="Orders" component={Orders} />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="ContactUS" component={ContactUS} />
     </Stack.Navigator>
   );
 };

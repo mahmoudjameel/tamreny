@@ -16,7 +16,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tamrini.com",
+      "bundleIdentifier": "com.tamrini.app",
       "buildNumber": "1.0.0",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~3597160507"

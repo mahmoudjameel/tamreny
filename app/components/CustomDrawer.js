@@ -1,6 +1,11 @@
 // @ts-nocheck
 import React, { useEffect } from "react";
-import { TouchableNativeFeedback, Alert } from "react-native";
+import {
+  TouchableNativeFeedback,
+  Alert,
+  Platform,
+  Linking,
+} from "react-native";
 import styled from "styled-components";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import Icon from "react-native-ionicons";
@@ -43,14 +48,14 @@ const CustomDrawer = (props = { navigation }) => {
       isLoggedIn: [true, false],
     },
     {
-      name: "Home",
+      name: "About",
       title: "عن التطبيق",
       icon: "ios-help-circle",
       active: false,
       isLoggedIn: [true, false],
     },
     {
-      name: "Home",
+      name: "ContactUS",
       title: "تواصل معنا",
       icon: "ios-mail",
       active: false,
@@ -62,6 +67,12 @@ const CustomDrawer = (props = { navigation }) => {
       icon: "ios-star",
       active: false,
       isLoggedIn: [false, true],
+      action: () =>
+        Platform.OS == "android"
+          ? Linking.openURL(
+              "https://play.google.com/store/apps/details?id=com.tamrini.com"
+            )
+          : Linking.openURL("https://tamrini.com/"),
     },
     {
       name: "Home",

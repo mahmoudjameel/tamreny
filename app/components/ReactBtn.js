@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
-  Animated
+  Animated,
 } from "react-native";
 import styled from "styled-components";
 import LikeBtn from "./LikeBtn";
@@ -26,20 +26,20 @@ const ReactBtn = ({ customStyle = {} }) => {
       Animated.spring(pressAnim1, {
         toValue: expanded ? 10 : 75,
         duration: 400,
-        useNativeDriver: false
+        useNativeDriver: false,
       }),
 
       Animated.spring(pressAnim2, {
         toValue: expanded ? 10 : 145,
         duration: 400,
-        useNativeDriver: false
+        useNativeDriver: false,
       }),
 
       Animated.spring(pressAnim3, {
         toValue: expanded ? 10 : 215,
         duration: 400,
-        useNativeDriver: false
-      })
+        useNativeDriver: false,
+      }),
     ]).start();
   };
   /******************************************************/
@@ -59,17 +59,17 @@ const ReactBtn = ({ customStyle = {} }) => {
   `;
 
   const Circle = styled.View`
-    width: ${props => props.size || 70}px;
-    height: ${props => props.size || 70}px;
-    border-radius: ${props => props.size / 2 || 35}px;
+    width: ${(props) => props.size || 70}px;
+    height: ${(props) => props.size || 70}px;
+    border-radius: ${(props) => props.size / 2 || 35}px;
     border: 1px solid ${Colors.black + "11"};
-    background-color: ${props => props.color || Colors.primary};
+    background-color: ${(props) => props.color || Colors.primary};
     align-items: center;
     justify-content: center;
-    elevation: ${props => (props.shadow ? 8 : 0)};
+    elevation: ${(props) => (props.shadow ? 8 : 0)};
     overflow: hidden;
     z-index: 2;
-    background-color: ${props => props.color || Colors.primary};
+    background-color: ${(props) => props.color || Colors.primary};
   `;
 
   const SmallCircle = styled.View`
@@ -96,15 +96,13 @@ const ReactBtn = ({ customStyle = {} }) => {
             </SmallCircle>
           </Circle>
         </TouchableNativeFeedback>
-        <BtnContainer style={{ bottom: pressAnim1 }}>
-          <LikeBtn size={60} />
-        </BtnContainer>
+
         <BtnContainer style={{ bottom: pressAnim2 }}>
           <ShareBtn size={60} />
         </BtnContainer>
-        <BtnContainer style={{ bottom: pressAnim3 }}>
+        {/* <BtnContainer style={{ bottom: pressAnim3 }}>
           <CommentBtn size={60} />
-        </BtnContainer>
+        </BtnContainer> */}
         {/* <Circle
           size={85}
           style={{ opacity: 0.2, position: "absolute", zIndex: 2 }}
