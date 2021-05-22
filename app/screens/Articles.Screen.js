@@ -8,6 +8,8 @@ import { ArticleCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
 import { AdMobBanner } from "expo-ads-admob";
 import { Platform } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 const Articles = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -44,42 +46,44 @@ const Articles = (props) => {
   return (
     <>
       <Header {...props} title="المقالات" backBtnEnabled />
-      <MainContainer bgColor={Colors.white}>
-        <SearchBtn
-          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-          onSearch={setSearchQuery}
-        />
-        <ScrollContainer bgColor={Colors.white}>
-          <AdMobBanner
-            bannerSize="fullBanner"
-            adUnitID={
-              Platform.OS == "ios"
-                ? "ca-app-pub-2927383253903778/2231752723"
-                : "ca-app-pub-2927383253903778/3589421647"
-            }
-            servePersonalizedAds // true or false
+      <KeyboardAwareScrollView>
+        <MainContainer bgColor={Colors.white}>
+          <SearchBtn
+            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+            onSearch={setSearchQuery}
           />
-          <Container bgColor={Colors.white}>
-            {articles.filter(
-              (article) =>
-                article.title.includes(searchQuery) ||
-                article.content.includes(searchQuery)
-            ).length != 0 ? (
-              articles
-                .filter(
-                  (article) =>
-                    article.title.includes(searchQuery) ||
-                    article.content.includes(searchQuery)
-                )
-                .map((article, i) => (
-                  <ArticleCard key={i} {...props} article={article} />
-                ))
-            ) : (
-              <NormalText color={Colors.darkGray}>لا يوجد مقالات</NormalText>
-            )}
-          </Container>
-        </ScrollContainer>
-      </MainContainer>
+          <ScrollContainer bgColor={Colors.white}>
+            <AdMobBanner
+              bannerSize="fullBanner"
+              adUnitID={
+                Platform.OS == "ios"
+                  ? "ca-app-pub-2927383253903778/2231752723"
+                  : "ca-app-pub-2927383253903778/3589421647"
+              }
+              servePersonalizedAds // true or false
+            />
+            <Container bgColor={Colors.white}>
+              {articles.filter(
+                (article) =>
+                  article.title.includes(searchQuery) ||
+                  article.content.includes(searchQuery)
+              ).length != 0 ? (
+                articles
+                  .filter(
+                    (article) =>
+                      article.title.includes(searchQuery) ||
+                      article.content.includes(searchQuery)
+                  )
+                  .map((article, i) => (
+                    <ArticleCard key={i} {...props} article={article} />
+                  ))
+              ) : (
+                <NormalText color={Colors.darkGray}>لا يوجد مقالات</NormalText>
+              )}
+            </Container>
+          </ScrollContainer>
+        </MainContainer>
+      </KeyboardAwareScrollView>
     </>
   );
 };

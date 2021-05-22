@@ -5,7 +5,7 @@ import { Header, SearchBtn, ProductCategoryCard } from "../components/index";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const ProductCategories = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -40,41 +40,43 @@ const ProductCategories = (props) => {
   return (
     <>
       <Header {...props} title="متجر المنتجات" backBtnEnabled />
-      <SearchBtn
-        style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-        onSearch={setSearchQuery}
-      />
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: 10,
-            flexWrap: "wrap",
-            flex: 1,
-          }}
-        >
-          {products.filter(
-            (product) =>
-              product.title.includes(searchQuery) ||
-              product.description.includes(searchQuery)
-          ).length != 0 ? (
-            products
-              .filter(
-                (product) =>
-                  product.title.includes(searchQuery) ||
-                  product.description.includes(searchQuery)
-              )
-              .map((category, i) => (
-                <ProductCategoryCard key={i} {...props} category={category} />
-              ))
-          ) : (
-            <Text style={{ color: Colors.darkGray, textAlign: "center" }}>
-              لا يوجد منتجات
-            </Text>
-          )}
-        </View>
-      </ScrollView>
+      <KeyboardAwareScrollView>
+        <SearchBtn
+          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+          onSearch={setSearchQuery}
+        />
+        <ScrollView>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: 10,
+              flexWrap: "wrap",
+              flex: 1,
+            }}
+          >
+            {products.filter(
+              (product) =>
+                product.title.includes(searchQuery) ||
+                product.description.includes(searchQuery)
+            ).length != 0 ? (
+              products
+                .filter(
+                  (product) =>
+                    product.title.includes(searchQuery) ||
+                    product.description.includes(searchQuery)
+                )
+                .map((category, i) => (
+                  <ProductCategoryCard key={i} {...props} category={category} />
+                ))
+            ) : (
+              <Text style={{ color: Colors.darkGray, textAlign: "center" }}>
+                لا يوجد منتجات
+              </Text>
+            )}
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
     </>
   );
 };

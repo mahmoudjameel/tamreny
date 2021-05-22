@@ -5,6 +5,7 @@ import { API_URL } from "../settings/Config";
 import { Header } from "../components/index";
 import { ProductCard, SearchBtn } from "../components/index";
 import { useThemeContext, useAppContext } from "../helpers/AppProvider";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Products = (props) => {
   const Theme = useThemeContext();
@@ -44,33 +45,35 @@ const Products = (props) => {
   return (
     <>
       <Header {...props} title={category.title} backBtnEnabled />
-      <MainContainer bgColor={Colors.white}>
-        <SearchBtn
-          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-          onSearch={setSearchQuery}
-        />
-        <ScrollContainer bgColor={Colors.white}>
-          <Container bgColor={Colors.white}>
-            {products.filter(
-              (product) =>
-                product.title.includes(searchQuery) ||
-                product.description.includes(searchQuery)
-            ).length != 0 ? (
-              products
-                .filter(
-                  (product) =>
-                    product.title.includes(searchQuery) ||
-                    product.description.includes(searchQuery)
-                )
-                .map((product, i) => (
-                  <ProductCard key={i} {...props} product={product} />
-                ))
-            ) : (
-              <NormalText color={Colors.darkGray}>لا يوجد منتجات</NormalText>
-            )}
-          </Container>
-        </ScrollContainer>
-      </MainContainer>
+      <KeyboardAwareScrollView>
+        <MainContainer bgColor={Colors.white}>
+          <SearchBtn
+            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+            onSearch={setSearchQuery}
+          />
+          <ScrollContainer bgColor={Colors.white}>
+            <Container bgColor={Colors.white}>
+              {products.filter(
+                (product) =>
+                  product.title.includes(searchQuery) ||
+                  product.description.includes(searchQuery)
+              ).length != 0 ? (
+                products
+                  .filter(
+                    (product) =>
+                      product.title.includes(searchQuery) ||
+                      product.description.includes(searchQuery)
+                  )
+                  .map((product, i) => (
+                    <ProductCard key={i} {...props} product={product} />
+                  ))
+              ) : (
+                <NormalText color={Colors.darkGray}>لا يوجد منتجات</NormalText>
+              )}
+            </Container>
+          </ScrollContainer>
+        </MainContainer>
+      </KeyboardAwareScrollView>
     </>
   );
 };

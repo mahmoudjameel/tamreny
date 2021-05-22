@@ -5,7 +5,7 @@ import axios from "axios";
 import { API_URL } from "../settings/Config";
 import { Header, ExerciseCard, SearchBtn } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const ImageExercises = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -64,30 +64,32 @@ const ImageExercises = (props) => {
   return (
     <>
       <Header {...props} title={name} backBtnEnabled />
-      <MainContainer>
-        <SearchBtn
-          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-        />
-        <ScrollContainer>
-          <Container>
-            {exercises.map(
-              ({ _id, images, title, description, videoId }, i) => (
-                <ExerciseCard
-                  key={i}
-                  {...props}
-                  _id={_id}
-                  categoryId={categoryId}
-                  images={images}
-                  title={title}
-                  description={description}
-                  type={type}
-                  videoId={videoId}
-                />
-              )
-            )}
-          </Container>
-        </ScrollContainer>
-      </MainContainer>
+      <KeyboardAwareScrollView>
+        <MainContainer>
+          <SearchBtn
+            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+          />
+          <ScrollContainer>
+            <Container>
+              {exercises.map(
+                ({ _id, images, title, description, videoId }, i) => (
+                  <ExerciseCard
+                    key={i}
+                    {...props}
+                    _id={_id}
+                    categoryId={categoryId}
+                    images={images}
+                    title={title}
+                    description={description}
+                    type={type}
+                    videoId={videoId}
+                  />
+                )
+              )}
+            </Container>
+          </ScrollContainer>
+        </MainContainer>
+      </KeyboardAwareScrollView>
     </>
   );
 };

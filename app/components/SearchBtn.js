@@ -4,6 +4,7 @@ import {
   TouchableNativeFeedback,
   TextInput,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import styled from "styled-components";
 import Icon from "react-native-ionicons";
@@ -41,7 +42,9 @@ const SearchBtn = ({ style = {}, onSearch = (query) => null }) => {
 
   return (
     <Container style={style}>
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <TouchableNativeFeedback onPress={pressBtn} useForeground>
           <SearchButton
             bgColor={Colors.primary}
