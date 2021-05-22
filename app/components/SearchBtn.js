@@ -1,5 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Animated, TouchableNativeFeedback, TextInput } from "react-native";
+import {
+  Animated,
+  TouchableNativeFeedback,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import styled from "styled-components";
 import Icon from "react-native-ionicons";
 import { useThemeContext } from "../helpers/AppProvider";
@@ -20,7 +25,6 @@ const SearchBtn = ({ style = {}, onSearch = (query) => null }) => {
     onSearch(searchQuery);
   }, [searchQuery]);
 
-  
   const pressBtn = () => {
     if (searchQuery.length == 0) {
       active == false ? inputRef.current.focus() : inputRef.current.blur();
@@ -37,35 +41,37 @@ const SearchBtn = ({ style = {}, onSearch = (query) => null }) => {
 
   return (
     <Container style={style}>
-      <TouchableNativeFeedback onPress={pressBtn} useForeground>
-        <SearchButton
-          bgColor={Colors.primary}
-          borderColor={Colors.black + "11"}
-        >
-          {active && searchQuery ? (
-            <SearchText color={Colors.white}>ابحث</SearchText>
-          ) : (
-            <>
-              <BtnIcon
-                color={Colors.white}
-                name={active ? "ios-close" : "search"}
-              />
-            </>
-          )}
-        </SearchButton>
-      </TouchableNativeFeedback>
-      <SearchBoxContainer style={{ left: pressAnim }}>
-        <Input
-          borderColor={Colors.primary + "11"}
-          ref={inputRef}
-          bgColor={Colors.white}
-          placeholder="بحث..."
-          value={searchQuery}
-          onChangeText={(value) => {
-            setSearchQuery(value);
-          }}
-        />
-      </SearchBoxContainer>
+      <KeyboardAvoidingView>
+        <TouchableNativeFeedback onPress={pressBtn} useForeground>
+          <SearchButton
+            bgColor={Colors.primary}
+            borderColor={Colors.black + "11"}
+          >
+            {active && searchQuery ? (
+              <SearchText color={Colors.white}>ابحث</SearchText>
+            ) : (
+              <>
+                <BtnIcon
+                  color={Colors.white}
+                  name={active ? "ios-close" : "search"}
+                />
+              </>
+            )}
+          </SearchButton>
+        </TouchableNativeFeedback>
+        <SearchBoxContainer style={{ left: pressAnim }}>
+          <Input
+            borderColor={Colors.primary + "11"}
+            ref={inputRef}
+            bgColor={Colors.white}
+            placeholder="بحث..."
+            value={searchQuery}
+            onChangeText={(value) => {
+              setSearchQuery(value);
+            }}
+          />
+        </SearchBoxContainer>
+      </KeyboardAvoidingView>
     </Container>
   );
 };
