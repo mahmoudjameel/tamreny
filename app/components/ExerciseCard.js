@@ -80,7 +80,7 @@ const ExerciseCard = ({
                 images[0] ||
                 `http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`
             }}
-            style={{ width: "100%", height: "100%", resizeMode: "cover" }}
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
           />
         </ImageContainer>
         <Title numberOfLines={1}>{title}</Title>

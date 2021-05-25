@@ -49,7 +49,7 @@ const Articles = (props) => {
       <KeyboardAwareScrollView>
         <MainContainer bgColor={Colors.white}>
           <SearchBtn
-            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+            style={{ position: "absolute", top: 60, left: 10, zIndex: 6 }}
             onSearch={setSearchQuery}
           />
           <ScrollContainer bgColor={Colors.white}>

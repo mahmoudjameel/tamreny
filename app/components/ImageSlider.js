@@ -25,11 +25,11 @@ const ImageSlider = ({ width, height, images = [] }) => {
   const Container = styled.View`
     width: ${width || "300px"};
     height: ${height || "200px"};
-    background-color: ${Colors.primary};
+    background-color: ${"#fff"};
   `;
 
   const ImageComponent = styled(Image)`
-    resize-mode: cover;
+    resize-mode: contain;
     align-self: center;
     height: ${containerLayout.height || 200}px;
     width: ${containerLayout.width || 320}px;

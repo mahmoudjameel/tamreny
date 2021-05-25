@@ -47,7 +47,7 @@ const SelectInput = ({
       // borderTopLeftRadius: 40,
       // borderTopRightRadius: 40,
       overflow: "hidden",
-      paddingTop: 20,
+      // paddingTop: 20,
       paddingBottom: 20,
       // height: "100%"
     },
