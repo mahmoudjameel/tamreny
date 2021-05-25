@@ -11,7 +11,7 @@ const Food = (props) => {
   let Colors = Theme.Colors;
 
   const [optionTwo, setOptionTwo] = useState(1);
-  const [weight, setWeight] = useState();
+  const [weight, setWeight] = useState(0);
   const [optionTwoVisible, setOptionTwoVisible] = useState(false);
   const [Nutritions, setNutritions] = useState([]);
   useEffect(() => {
@@ -172,7 +172,7 @@ const Food = (props) => {
                   placeholder="الوزن"
                   keyboardType="number-pad"
                   style={{ width: "80%" }}
-                  value={weight}
+                  value={weight.toString()}
                   onChangeText={(value) => setWeight(value)}
                 />
                 <InputDesc>غرام</InputDesc>

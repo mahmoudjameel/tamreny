@@ -39,13 +39,17 @@ const SelectInput = ({
     itemsContainer: {
       position: "absolute",
       bottom: 0,
+      top: 0,
+      left: 0,
+      right: 0,
       width: "100%",
       backgroundColor: Colors.primary,
-      borderTopLeftRadius: 40,
-      borderTopRightRadius: 40,
+      // borderTopLeftRadius: 40,
+      // borderTopRightRadius: 40,
       overflow: "hidden",
-      paddingTop: 40,
+      paddingTop: 20,
       paddingBottom: 20,
+      // height: "100%"
     },
     itemContainer: {
       padding: 10,
