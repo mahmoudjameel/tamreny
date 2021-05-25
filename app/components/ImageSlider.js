@@ -1,13 +1,13 @@
 // @ts-nocheck
 import React, { useRef, useEffect, useState } from "react";
-import { Image, FlatList, TouchableWithoutFeedback, View } from "react-native";
+import { Image, FlatList, TouchableOpacity, View } from "react-native";
 import WebView from "react-native-webview";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components";
 import { useThemeContext } from "../helpers/AppProvider";
 import { YOUTUBE_PLAYER } from "../settings/Config";
 
-const ImageSlider = ({ width, height, images = [] }) => {
+const ImageSlider = ({ onPress, width, height, images = [] }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
@@ -37,7 +37,7 @@ const ImageSlider = ({ width, height, images = [] }) => {
 
   /******************************************************/
   return (
-    <Container ref={containerRef} onPress={() => null}>
+    <Container ref={containerRef}>
       <SwiperFlatList
         autoplay
         autoplayDelay={6}
@@ -54,10 +54,18 @@ const ImageSlider = ({ width, height, images = [] }) => {
         }}
         paginationStyleItemActive={{ backgroundColor: Colors.primary }}
         paginationStyleItemInactive={{ backgroundColor: Colors.gray }}
-        renderItem={({ item }) => (
-          <ImageComponent
-            source={typeof item === "string" ? { uri: item } : item}
-          />
+        renderItem={({ item, index }) => (
+          <TouchableOpacity onPress={() => onPress(index)}>
+            <ImageComponent
+              source={
+                typeof item === "string"
+                  ? { uri: item }
+                  : typeof item == "object"
+                  ? { uri: item.image }
+                  : item
+              }
+            />
+          </TouchableOpacity>
         )}
       />
     </Container>

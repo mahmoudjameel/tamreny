@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableNativeFeedback, Linking } from "react-native";
 import styled from "styled-components";
 import { Header, ChangeColor, ImageSlider } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
@@ -10,7 +10,6 @@ const Home = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
   const [advertisements, setAdvertisements] = useState([]);
-  const [advertisementsImages, setAdvertisementsImages] = useState([]);
 
   useEffect(() => {
     getAdvertisements();
@@ -22,11 +21,6 @@ const Home = (props) => {
       let data = await response.data;
       if (data.status) {
         setAdvertisements(data.advertisements);
-        data.advertisements.map((item, i) => {
-          let images = [];
-          images.push(item.image);
-          setAdvertisementsImages(images);
-        });
       } else {
         //alert(data.errors);
       }
@@ -133,18 +127,22 @@ const Home = (props) => {
     background-color: ${Colors.primary};
   `;
 
+  const onAdsPress = (index) => {
+    Linking.openURL(advertisements[index].link);
+  };
   /******************************************************/
   return (
     <>
       <Header {...props} title="الرئيسية" />
       <ScrollContainer>
         <Container>
-          {advertisementsImages.length > 0 && (
+          {advertisements.length > 0 && (
             <MainImageContainer>
               <ImageSlider
                 width={"100%"}
                 height={"100%"}
-                images={advertisementsImages}
+                images={advertisements}
+                onPress={onAdsPress}
               />
             </MainImageContainer>
           )}
