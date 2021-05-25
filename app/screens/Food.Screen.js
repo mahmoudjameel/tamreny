@@ -14,6 +14,7 @@ const Food = (props) => {
   const [weight, setWeight] = useState(0);
   const [optionTwoVisible, setOptionTwoVisible] = useState(false);
   const [Nutritions, setNutritions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     getNutritions();
   }, []);
@@ -148,11 +149,14 @@ const Food = (props) => {
       <SelectInput
         visible={optionTwoVisible}
         value={optionTwo}
-        selection={Nutritions}
+        selection={Nutritions.filter(nutrition => nutrition.name.includes(searchQuery))}
         onSelect={(value) => {
           setOptionTwo(value);
         }}
         toggleSelection={() => setOptionTwoVisible(!optionTwoVisible)}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        showInput={true}
       />
       <ScrollContainer>
         <MainContainer>

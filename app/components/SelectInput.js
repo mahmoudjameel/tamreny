@@ -7,7 +7,10 @@ import {
   Text,
   Modal,
   ScrollView,
+  TextInput,
+  Dimensions
 } from "react-native";
+import styled from "styled-components";
 import { useThemeContext } from "../helpers/AppProvider";
 
 const SelectInput = ({
@@ -16,6 +19,9 @@ const SelectInput = ({
   onSelect = (value) => null,
   toggleSelection = () => null,
   selection,
+  searchQuery,
+  setSearchQuery,
+  showInput
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -38,18 +44,18 @@ const SelectInput = ({
     },
     itemsContainer: {
       position: "absolute",
-      bottom: 0,
+      // bottom: 0,
       top: 0,
-      left: 0,
-      right: 0,
+      // left: 0,
+      // right: 0,
       width: "100%",
       backgroundColor: Colors.primary,
       // borderTopLeftRadius: 40,
       // borderTopRightRadius: 40,
       overflow: "hidden",
-      // paddingTop: 20,
-      paddingBottom: 20,
-      // height: "100%"
+      // paddingTop: 45,
+      // paddingBottom: 20,
+      height: showInput ? Dimensions.get('window').height - 25 : Dimensions.get('window').height
     },
     itemContainer: {
       padding: 10,
@@ -73,6 +79,21 @@ const SelectInput = ({
     },
   });
   /******************************************************/
+  /******************************************************/
+  const Input = styled(TextInput)`
+    width: 100%;
+    height: 42px;
+    background-color: ${"#fff"};
+    elevation: 2;
+    border: 1px solid ${"#000"};
+    font-family: ArabicUI;
+    padding-right: 22px;
+    padding-left: 22px;
+    padding-left: 30px;
+    text-align: right;
+    z-index: 1;
+`;
+  /******************************************************/
 
   return (
     <Modal
@@ -81,6 +102,17 @@ const SelectInput = ({
       animationType="slide"
       onRequestClose={toggleModal}
     >
+      {
+        showInput && (
+          <Input
+            placeholder="بحث..."
+            defaultValue={searchQuery}
+            onChangeText={(value) => {
+              setSearchQuery(value);
+            }}
+          />
+        )
+      }
       <View style={styles.modalContainer}>
         <ScrollView style={styles.itemsContainer}>
           {selection.map((item, index) => (
