@@ -23,7 +23,7 @@ const Home = (props) => {
       if (data.status) {
         setAdvertisements(data.advertisements);
         data.advertisements.map((item, i) => {
-          let images = advertisementsImages;
+          let images = [];
           images.push(item.image);
           setAdvertisementsImages(images);
         });

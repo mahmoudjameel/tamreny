@@ -39,6 +39,10 @@ const ImageSlider = ({ width, height, images = [] }) => {
   return (
     <Container ref={containerRef} onPress={() => null}>
       <SwiperFlatList
+        autoplay
+        autoplayDelay={6}
+        autoplayLoop
+        autoplayLoopKeepAnimation
         index={0}
         showPagination
         data={images}
