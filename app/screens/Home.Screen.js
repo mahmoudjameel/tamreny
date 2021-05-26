@@ -128,7 +128,8 @@ const Home = (props) => {
   `;
 
   const onAdsPress = (index) => {
-    Linking.openURL(advertisements[index].link);
+    const link = advertisements[index].link;
+    link && Linking.openURL(advertisements[index].link);
   };
   /******************************************************/
   return (
