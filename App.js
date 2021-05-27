@@ -10,9 +10,14 @@ import {
   AdMobRewarded,
   setTestDeviceIDAsync,
 } from "expo-ads-admob";
-import { Platform } from "react-native";
+import { Platform, I18nManager } from "react-native";
 
 const App = () => {
+  try {
+    I18nManager.allowRTL(false);
+  } catch(e) {
+    console.log("error", e);
+  }
   const [fontsLoaded] = useFonts({
     Ionicons: require("react-native-ionicons/fonts/Ionicons.ttf"),
     "Cairo-Regular": require("./app/assets/fonts/Cairo-Regular.ttf"),
