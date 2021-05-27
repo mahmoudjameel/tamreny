@@ -43,41 +43,16 @@ const Gyms = props => {
   };
 
   /******************************************************/
-
-  const ScrollContainer = styled.ScrollView`
-    background-color: ${Colors.white};
-    min-height: 100%;
-  `;
-
-  const MainContainer = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-  `;
-
-  const Container = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-    padding: 20px 15px;
-  `;
-  const NormalText = styled.Text`
-    font-family: Cairo-Regular;
-    font-size: 20px;
-    margin-top: 10px;
-    color: ${props => props.color};
-    text-align: center;
-  `;
-
-  /******************************************************/
   return (
     <>
       <Header {...props} title="الصالات الرياضية" backBtnEnabled />
-      <MainContainer>
+      <MainContainer bgColor={Colors.white}>
         <SearchBtn
           style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
           onSearch={setSearchQuery}
         />
-        <ScrollContainer>
-          <Container>
+        <ScrollContainer bgColor={Colors.white}>
+          <Container bgColor={Colors.white}>
             {halls.filter(
               hall =>
                 hall.name.includes(searchQuery) ||
@@ -115,5 +90,31 @@ const Gyms = props => {
     </>
   );
 };
+
+/******************************************************/
+
+const ScrollContainer = styled.ScrollView`
+  background-color: ${props => props.bgColor};
+  min-height: 100%;
+`;
+
+const MainContainer = styled.View`
+  flex: 1;
+  background-color: ${props => props.bgColor};
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${ props => props.bgColor};
+  padding: 20px 15px;
+`;
+const NormalText = styled.Text`
+  font-family: Cairo-Regular;
+  font-size: 20px;
+  margin-top: 10px;
+  color: ${props => props.color};
+  text-align: center;
+`;
+
 
 export default Gyms;

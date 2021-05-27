@@ -33,6 +33,88 @@ const Food = (props) => {
   };
 
   /******************************************************/
+  return (
+    <>
+      <Header {...props} title="القيمة الغذائية" backBtnEnabled />
+      <SelectInput
+        visible={optionTwoVisible}
+        value={optionTwo}
+        selection={Nutritions.filter(nutrition => nutrition.name.includes(searchQuery))}
+        onSelect={(value) => {
+          setOptionTwo(value);
+        }}
+        toggleSelection={() => setOptionTwoVisible(!optionTwoVisible)}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        showInput={true}
+      />
+      <ScrollContainer>
+        <MainContainer>
+          <Container bgColor={Colors.white} borderColor={Colors.black + "11"}>
+            <RowContainer style={{ justifyContent: "flex-start" }}>
+              <TouchableNativeFeedback
+                onPress={() => setOptionTwoVisible(!optionTwoVisible)}
+                useForeground
+              >
+                <SelectRounded style={{ width: "60%" }} borderColor={Colors.black + "11"} bgColor={Colors.lightGray}>
+                  <NormalText color={Colors.black}>{Nutritions[optionTwo]?.name}</NormalText>
+                  <SelectArrow  borderColor={Colors.black} />
+                </SelectRounded>
+              </TouchableNativeFeedback>
+              <RoundedInput
+                borderColor={Colors.black + "11"}
+                bgColor={Colors.lightGray}
+              >
+                <Input
+                  placeholder="الوزن"
+                  keyboardType="number-pad"
+                  style={{ width: "80%" }}
+                  value={weight.toString()}
+                  onChangeText={(value) => setWeight(value)}
+                />
+                <InputDesc  color={Colors.black}>غرام</InputDesc>
+              </RoundedInput>
+            </RowContainer>
+            {/* <RowContainer>
+              <TouchableNativeFeedback onPress={() => null} useForeground>
+                <CalculateBtn>
+                  <Title style={{ color: Colors.white }}>احسب</Title>
+                </CalculateBtn>
+              </TouchableNativeFeedback>
+            </RowContainer> */}
+            <LineSeparator bgColor={Colors.black} />
+            <RowContainer style={{ marginTop: 40, marginBottom: 5 }}>
+              <BoldText color={Colors.black}>المغذيات</BoldText>
+              <BoldText color={Colors.black}>الكمية</BoldText>
+            </RowContainer>
+            <RowContainer style={{ marginBottom: 5 }}>
+              <Title color={Colors.black}>طاقة</Title>
+              <ResultText  color={Colors.red}>{Nutritions[optionTwo]?.energy * weight}</ResultText>
+              <NormalText color={Colors.black}>كالوري</NormalText>
+            </RowContainer>
+            <RowContainer style={{ marginBottom: 5 }}>
+              <Title color={Colors.black}>بروتين</Title>
+              <ResultText  color={Colors.red}>{Nutritions[optionTwo]?.protein * weight}</ResultText>
+              <NormalText color={Colors.black}>غرام</NormalText>
+            </RowContainer>
+            <RowContainer style={{ marginBottom: 5 }}>
+              <Title color={Colors.black}>دهون</Title>
+              <ResultText  color={Colors.red}>{Nutritions[optionTwo]?.fat * weight}</ResultText>
+              <NormalText color={Colors.black}>غرام</NormalText>
+            </RowContainer>
+            <RowContainer style={{ marginBottom: 5 }}>
+              <Title color={Colors.black}>كربوهيدرات</Title>
+              <ResultText  color={Colors.red}>{Nutritions[optionTwo]?.carbs * weight}</ResultText>
+              <NormalText color={Colors.black}>غرام</NormalText>
+            </RowContainer>
+          </Container>
+        </MainContainer>
+      </ScrollContainer>
+    </>
+  );
+};
+
+  /******************************************************/
 
   const MainContainer = styled.View`
     flex: 1;
@@ -43,9 +125,9 @@ const Food = (props) => {
 
   const Container = styled.View`
     flex: 1;
-    background-color: ${Colors.white};
+    background-color: ${(props) => props.bgColor};
     elevation: 10;
-    border: 1px ${Colors.black + "11"};
+    border: 1px ${(props) => props.borderColor};
     border-radius: 12px;
     padding: 18px 15px;
     padding-bottom: 30px;
@@ -62,13 +144,13 @@ const Food = (props) => {
   const Title = styled.Text`
     font-family: Cairo-SemiBold;
     font-size: 20px;
-    color: ${Colors.black};
+    color: ${(props) => props.color};
   `;
 
   const NormalText = styled.Text`
     font-family: Cairo-Regular;
     font-size: 18px;
-    color: ${Colors.black};
+    color: ${(props) => props.color};
   `;
 
   const BoldText = styled(Title)`
@@ -76,9 +158,9 @@ const Food = (props) => {
   `;
 
   const RoundedInput = styled.View`
-    background-color: ${Colors.lightGray};
+    background-color: ${(props) => props.bgColor};
     border-radius: 30px;
-    border: 1px ${Colors.black + "11"};
+    border: 1px ${(props) => props.borderColor};
     elevation: 3;
     flex-direction: row-reverse;
     padding: 5px 15px;
@@ -98,9 +180,9 @@ const Food = (props) => {
   `;
 
   const SelectRounded = styled.View`
-    background-color: ${Colors.lightGray};
+    background-color: ${(props) => props.bgColor};
     border-radius: 30px;
-    border: 1px ${Colors.black + "11"};
+    border: 1px ${(props) => props.borderColor};
     padding: 5px 30px;
     elevation: 3;
     width: 100%;
@@ -111,16 +193,16 @@ const Food = (props) => {
   const SelectArrow = styled.View`
     border: 6px transparent;
     border-top-width: 12px;
-    border-top-color: ${Colors.black};
+    border-top-color: ${(props) => props.borderColor};
     position: absolute;
     left: 20px;
     top: 50%;
   `;
 
   const CalculateBtn = styled(SelectRounded)`
-    background-color: ${Colors.primary};
+    background-color: ${(props) => props.bgColor};
     padding: 5px 30px;
-    border: 1px ${Colors.primary + "11"};
+    border: 1px ${(props) => props.borderColor};
     margin-top: 50px;
     align-items: center;
   `;
@@ -129,7 +211,7 @@ const Food = (props) => {
     width: 80%;
     height: 3px;
     align-self: center;
-    background-color: ${Colors.black};
+    background-color: ${(props) => props.bgColor};
     opacity: 0.5;
     border-radius: 15px;
     margin-top: -15px;
@@ -137,88 +219,10 @@ const Food = (props) => {
 
   const ResultText = styled(Title)`
     margin-left: auto;
-    transform: translateX(10px);
-    color: ${Colors.red};
+    color: ${(props) => props.color};
+    color: ${(props) => props.color};
     font-size: 22px;
   `;
-
-  /******************************************************/
-  return (
-    <>
-      <Header {...props} title="القيمة الغذائية" backBtnEnabled />
-      <SelectInput
-        visible={optionTwoVisible}
-        value={optionTwo}
-        selection={Nutritions.filter(nutrition => nutrition.name.includes(searchQuery))}
-        onSelect={(value) => {
-          setOptionTwo(value);
-        }}
-        toggleSelection={() => setOptionTwoVisible(!optionTwoVisible)}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        showInput={true}
-      />
-      <ScrollContainer>
-        <MainContainer>
-          <Container>
-            <RowContainer>
-              <TouchableNativeFeedback
-                onPress={() => setOptionTwoVisible(!optionTwoVisible)}
-                useForeground
-              >
-                <SelectRounded style={{ width: "60%" }}>
-                  <NormalText>{Nutritions[optionTwo]?.name}</NormalText>
-                  <SelectArrow />
-                </SelectRounded>
-              </TouchableNativeFeedback>
-              <RoundedInput>
-                <Input
-                  placeholder="الوزن"
-                  keyboardType="number-pad"
-                  style={{ width: "80%" }}
-                  value={weight.toString()}
-                  onChangeText={(value) => setWeight(value)}
-                />
-                <InputDesc>غرام</InputDesc>
-              </RoundedInput>
-            </RowContainer>
-            {/* <RowContainer>
-              <TouchableNativeFeedback onPress={() => null} useForeground>
-                <CalculateBtn>
-                  <Title style={{ color: Colors.white }}>احسب</Title>
-                </CalculateBtn>
-              </TouchableNativeFeedback>
-            </RowContainer> */}
-            <LineSeparator />
-            <RowContainer style={{ marginTop: 40, marginBottom: 5 }}>
-              <BoldText>المغذيات</BoldText>
-              <BoldText>الكمية</BoldText>
-            </RowContainer>
-            <RowContainer style={{ marginBottom: 5 }}>
-              <Title>طاقة</Title>
-              <ResultText>{Nutritions[optionTwo]?.energy * weight}</ResultText>
-              <NormalText>كالوري</NormalText>
-            </RowContainer>
-            <RowContainer style={{ marginBottom: 5 }}>
-              <Title>بروتين</Title>
-              <ResultText>{Nutritions[optionTwo]?.protein * weight}</ResultText>
-              <NormalText>غرام</NormalText>
-            </RowContainer>
-            <RowContainer style={{ marginBottom: 5 }}>
-              <Title>دهون</Title>
-              <ResultText>{Nutritions[optionTwo]?.fat * weight}</ResultText>
-              <NormalText>غرام</NormalText>
-            </RowContainer>
-            <RowContainer style={{ marginBottom: 5 }}>
-              <Title>كربوهيدرات</Title>
-              <ResultText>{Nutritions[optionTwo]?.carbs * weight}</ResultText>
-              <NormalText>غرام</NormalText>
-            </RowContainer>
-          </Container>
-        </MainContainer>
-      </ScrollContainer>
-    </>
-  );
-};
+/******************************************************/
 
 export default Food;

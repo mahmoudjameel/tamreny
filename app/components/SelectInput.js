@@ -79,21 +79,6 @@ const SelectInput = ({
     },
   });
   /******************************************************/
-  /******************************************************/
-  const Input = styled(TextInput)`
-    width: 100%;
-    height: 42px;
-    background-color: ${"#fff"};
-    elevation: 2;
-    border: 1px solid ${"#000"};
-    font-family: ArabicUI;
-    padding-right: 22px;
-    padding-left: 22px;
-    padding-left: 30px;
-    text-align: right;
-    z-index: 1;
-`;
-  /******************************************************/
 
   return (
     <Modal
@@ -143,5 +128,21 @@ const SelectInput = ({
     </Modal>
   );
 };
+
+/******************************************************/
+const Input = styled(TextInput)`
+  width: 100%;
+  height: 42px;
+  background-color: ${"#fff"};
+  elevation: 2;
+  border: 1px solid ${"#000"};
+  font-family: ArabicUI;
+  padding-right: 22px;
+  padding-left: 22px;
+  padding-left: 30px;
+  text-align: right;
+  z-index: 1;
+`;
+/******************************************************/
 
 export default SelectInput;
