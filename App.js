@@ -10,12 +10,12 @@ import {
   AdMobRewarded,
   setTestDeviceIDAsync,
 } from "expo-ads-admob";
-import { Platform, I18nManager } from "react-native";
+import { Platform, View, Dimensions, I18nManager } from "react-native";
 
 const App = () => {
   try {
     I18nManager.allowRTL(false);
-  } catch(e) {
+  } catch (e) {
     console.log("error", e);
   }
   const [fontsLoaded] = useFonts({
@@ -43,17 +43,25 @@ const App = () => {
       {fontsLoaded && (
         <>
           <DrawerNavigation />
-
-          <PublisherBanner
-            bannerSize="banner"
-            adUnitID={
-              Platform.OS == "ios"
-                ? "ca-app-pub-2927383253903778/2231752723"
-                : "ca-app-pub-2927383253903778/3589421647"
-            }
-            //didFailToReceiveAdWithError={this.bannerError}
-            //admobDispatchAppEvent={this.adMobEvent}
-          />
+          <View
+            style={{
+              width: Dimensions.get("window").width,
+            }}
+          >
+            <PublisherBanner
+              bannerSize="banner"
+              adUnitID={
+                Platform.OS == "ios"
+                  ? "ca-app-pub-2927383253903778/2231752723"
+                  : "ca-app-pub-2927383253903778/3589421647"
+              }
+              style={{
+                width: Dimensions.get("window").width,
+              }}
+              //didFailToReceiveAdWithError={this.bannerError}
+              //admobDispatchAppEvent={this.adMobEvent}
+            />
+          </View>
         </>
       )}
     </AppProvider>

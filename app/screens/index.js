@@ -20,3 +20,5 @@ export { default as Orders } from "./Orders.Screen";
 export { default as Settings } from "./Settings.Screen";
 export { default as About } from "./About.Screen";
 export { default as ContactUS } from "./ContactUS.Screen";
+export { default as ProteinsCats } from "./ProteinsCats.Screen";
+export { default as Proteins } from "./Proteins.Screen";

@@ -209,7 +209,13 @@ const Home = (props) => {
             </TouchableNativeFeedback>
             <TouchableNativeFeedback
               useForeground
-              onPress={() => props.navigation.navigate("Supplements")}
+              //onPress={() => props.navigation.navigate("Supplements")}
+              onPress={() =>
+                props.navigation.navigate("ProteinsCats", {
+                  type: null,
+                  title: "المكملات الغذائية",
+                })
+              }
             >
               <SmallCard>
                 <SmallImage source={require("../assets/img/flat.png")} />

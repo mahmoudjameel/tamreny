@@ -23,8 +23,9 @@ import {
   Settings,
   About,
   ContactUS,
+  ProteinsCats,
+  Proteins,
 } from "../screens/index";
-
 const Stack = createStackNavigator();
 
 const MainNavigation = () => {
@@ -58,6 +59,8 @@ const MainNavigation = () => {
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="ContactUS" component={ContactUS} />
+      <Stack.Screen name="ProteinsCats" component={ProteinsCats} />
+      <Stack.Screen name="Proteins" component={Proteins} />
     </Stack.Navigator>
   );
 };
