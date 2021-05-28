@@ -21,7 +21,8 @@ const SelectInput = ({
   selection,
   searchQuery,
   setSearchQuery,
-  showInput
+  showInput,
+  type
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -100,7 +101,31 @@ const SelectInput = ({
       }
       <View style={styles.modalContainer}>
         <ScrollView style={styles.itemsContainer}>
-          {selection.map((item, index) => (
+          {selection.map((item, index) => type === "food-nutritions" ? (
+            ((item.label && item.label.includes(searchQuery)) || (item.name && item.name.includes(searchQuery))) && (
+              <TouchableNativeFeedback
+                useForeground
+                key={index}
+                onPress={() => changeValue(index)}
+              >
+                <View>
+                  <View
+                    style={[
+                      styles.itemContainer,
+                      value == index && styles.selectedOption,
+                    ]}
+                  >
+                    <Text style={styles.itemLabel}>
+                      {item.label || item.name}
+                    </Text>
+                  </View>
+                  {index != selection.length - 1 && (
+                    <View style={styles.separator}></View>
+                  )}
+                </View>
+              </TouchableNativeFeedback>
+            )
+          ) : (
             <TouchableNativeFeedback
               useForeground
               key={index}

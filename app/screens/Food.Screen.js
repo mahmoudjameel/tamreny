@@ -39,9 +39,10 @@ const Food = (props) => {
       <SelectInput
         visible={optionTwoVisible}
         value={optionTwo}
-        selection={Nutritions.filter((nutrition) =>
-          nutrition.name.includes(searchQuery)
-        )}
+        // selection={Nutritions.filter((nutrition) =>
+        //   nutrition.name.includes(searchQuery)
+        // )}
+        selection={Nutritions}
         onSelect={(value) => {
           setOptionTwo(value);
         }}
@@ -49,6 +50,7 @@ const Food = (props) => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         showInput={true}
+        type="food-nutritions"
       />
       <ScrollContainer>
         <MainContainer>
