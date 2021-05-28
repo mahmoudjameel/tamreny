@@ -27,7 +27,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/main-img/adaptive-icon.png",
+        "foregroundImage": "./app/assets/main-img/icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.tamrini.com",
