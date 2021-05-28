@@ -13,6 +13,7 @@ const ImageExercises = (props) => {
   let { categoryId, name, type } = props.route.params || {};
 
   const [exercises, setExercises] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getExercises();
@@ -37,42 +38,19 @@ const ImageExercises = (props) => {
   };
 
   /******************************************************/
-  const ScrollContainer = styled.ScrollView`
-    background-color: ${Colors.white};
-    min-height: 100%;
-  `;
-
-  const MainContainer = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-  `;
-
-  const Container = styled.View`
-    flex: 1;
-    background-color: ${Colors.white};
-    padding: 20px 15px;
-  `;
-
-  const SearchBtnStyle = styled.View`
-    position: absolute;
-    bottom: 15px;
-    left: 18px;
-    z-index: 6;
-  `;
-
-  /******************************************************/
   return (
     <>
       <Header {...props} title={name} backBtnEnabled />
       <KeyboardAwareScrollView>
-        <MainContainer>
+        <MainContainer bgColor={Colors.white}>
           <SearchBtn
             style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+            onSearch={setSearchQuery}
           />
-          <ScrollContainer>
-            <Container>
+          <ScrollContainer bgColor={Colors.white}>
+            <Container bgColor={Colors.white}>
               {exercises.map(
-                ({ _id, images, title, description, videoId }, i) => (
+                ({ _id, images, title, description, videoId }, i) => (title.includes(searchQuery) || description.includes(searchQuery)) && (
                   <ExerciseCard
                     key={i}
                     {...props}
@@ -93,5 +71,31 @@ const ImageExercises = (props) => {
     </>
   );
 };
+
+  /******************************************************/
+  const ScrollContainer = styled.ScrollView`
+    background-color: ${props => props.bgColor};
+    min-height: 100%;
+    flex: 1;
+  `;
+
+  const MainContainer = styled.View`
+    flex: 1;
+    background-color: ${props => props.bgColor};
+  `;
+
+  const Container = styled.View`
+    flex: 1;
+    min-height: 100%;
+    background-color: ${props => props.bgColor};
+    padding: 20px 15px;
+  `;
+
+  const SearchBtnStyle = styled.View`
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    z-index: 6;
+  `;
 
 export default ImageExercises;
