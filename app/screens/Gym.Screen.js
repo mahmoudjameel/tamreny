@@ -7,7 +7,7 @@ import { useThemeContext } from "../helpers/AppProvider";
 import axios from "axios";
 import { API_URL, YOUTUBE_PLAYER } from "../settings/Config";
 
-const Gym = props => {
+const Gym = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
   //Set the hall data from params
@@ -107,7 +107,7 @@ const Gym = props => {
   return (
     <>
       <Header {...props} title={hall.name} backBtnEnabled />
-      <ReactBtn />
+      {/* <ReactBtn /> */}
       <ScrollContainer>
         <MainContainer>
           <Container>
@@ -124,7 +124,7 @@ const Gym = props => {
               style={{
                 justifyContent: "center",
                 marginTop: 20,
-                marginBottom: 20
+                marginBottom: 20,
               }}
             >
               <SmallImage source={require("../assets/img/location.png")} />
