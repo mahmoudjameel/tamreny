@@ -8,13 +8,14 @@ import { GymCard, SearchBtn } from "../components/index";
 import { useThemeContext } from "../helpers/AppProvider";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const Gyms = props => {
+const Gyms = (props) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
 
   const [permission, askPermission, getPermission] = usePermissions(LOCATION, {
-    ask: true
+    ask: true,
   });
   const [halls, setHalls] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +29,7 @@ const Gyms = props => {
       let location = await Location.getCurrentPositionAsync({});
       let response = await axios.post(`${API_URL}/halls/get/near`, {
         lng: location.coords.longitude,
-        lat: location.coords.latitude
+        lat: location.coords.latitude,
       });
       let data = await response.data;
 
@@ -46,47 +47,57 @@ const Gyms = props => {
   return (
     <>
       <Header {...props} title="الصالات الرياضية" backBtnEnabled />
-      <MainContainer bgColor={Colors.white}>
-        <SearchBtn
-          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-          onSearch={setSearchQuery}
-        />
-        <ScrollContainer bgColor={Colors.white}>
-          <Container bgColor={Colors.white}>
-            {halls.filter(
-              hall =>
-                hall.name.includes(searchQuery) ||
-                hall.brief.includes(searchQuery)
-            ).length != 0 ? (
-              halls
-                .filter(
-                  hall =>
-                    hall.name.includes(searchQuery) ||
-                    hall.brief.includes(searchQuery)
-                )
-                .map(
-                  ({ city, brief, name, _id, subscriptions, images, dis }) => (
-                    <GymCard
-                      key={_id}
-                      {...props}
-                      _id={_id}
-                      name={name}
-                      city={city}
-                      brief={brief}
-                      subscriptions={subscriptions}
-                      images={images}
-                      dis={dis}
-                    />
+      <KeyboardAwareScrollView>
+        <MainContainer bgColor={Colors.white}>
+          <SearchBtn
+            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+            onSearch={setSearchQuery}
+          />
+          <ScrollContainer bgColor={Colors.white}>
+            <Container bgColor={Colors.white}>
+              {halls.filter(
+                (hall) =>
+                  hall.name.includes(searchQuery) ||
+                  hall.brief.includes(searchQuery)
+              ).length != 0 ? (
+                halls
+                  .filter(
+                    (hall) =>
+                      hall.name.includes(searchQuery) ||
+                      hall.brief.includes(searchQuery)
                   )
-                )
-            ) : (
-              <NormalText color={Colors.darkGray}>
-                لا يوجد مكملات غذائية
-              </NormalText>
-            )}
-          </Container>
-        </ScrollContainer>
-      </MainContainer>
+                  .map(
+                    ({
+                      city,
+                      brief,
+                      name,
+                      _id,
+                      subscriptions,
+                      images,
+                      dis,
+                    }) => (
+                      <GymCard
+                        key={_id}
+                        {...props}
+                        _id={_id}
+                        name={name}
+                        city={city}
+                        brief={brief}
+                        subscriptions={subscriptions}
+                        images={images}
+                        dis={dis}
+                      />
+                    )
+                  )
+              ) : (
+                <NormalText color={Colors.darkGray}>
+                  لا يوجد صالات رياضية{" "}
+                </NormalText>
+              )}
+            </Container>
+          </ScrollContainer>
+        </MainContainer>
+      </KeyboardAwareScrollView>
     </>
   );
 };
@@ -94,27 +105,26 @@ const Gyms = props => {
 /******************************************************/
 
 const ScrollContainer = styled.ScrollView`
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   min-height: 100%;
 `;
 
 const MainContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
 `;
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${ props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   padding: 20px 15px;
 `;
 const NormalText = styled.Text`
   font-family: Cairo-Regular;
   font-size: 20px;
   margin-top: 10px;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   text-align: center;
 `;
-
 
 export default Gyms;
