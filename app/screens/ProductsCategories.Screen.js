@@ -41,11 +41,11 @@ const ProductCategories = (props) => {
     <>
       <Header {...props} title="متجر المنتجات" backBtnEnabled />
       <KeyboardAwareScrollView>
-        <SearchBtn
-          style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-          onSearch={setSearchQuery}
-        />
         <ScrollView>
+          {/* <SearchBtn
+            //style={{ position: "absolute", bottom: 40, left: 18, zIndex: 6 }}
+            onSearch={setSearchQuery}
+          /> */}
           <View
             style={{
               flexDirection: "row",

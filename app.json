@@ -2,7 +2,7 @@
   "expo": {
     "name": "tamrini",
     "slug": "tamrini",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./app/assets/main-img/icon.png",
     "splash": {
@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.tamrini.app",
-      "buildNumber": "1.0.1",
+      "buildNumber": "1.0.2",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~3597160507"
       },
@@ -31,7 +31,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.tamrini.com",
-      "versionCode": 2,
+      "versionCode": 3,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~1737283929"
       },
