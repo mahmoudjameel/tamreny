@@ -41,7 +41,9 @@ const SearchBtn = ({ style = {}, onSearch = (query) => null }) => {
   };
 
   return (
-    <Container style={{ position: "absolute", top: 10, left: 10, zIndex: 6 }}>
+    <Container
+      style={{ position: "absolute", bottom: 40, left: 10, zIndex: 6 }}
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
