@@ -55,7 +55,7 @@ const ImageSlider = ({ onPress, width, height, images = [] }) => {
         paginationStyleItemActive={{ backgroundColor: Colors.primary }}
         paginationStyleItemInactive={{ backgroundColor: Colors.gray }}
         renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => onPress(index)}>
+          <TouchableOpacity onPress={() => (onPress ? onPress(index) : null)}>
             <ImageComponent
               source={
                 typeof item === "string"
