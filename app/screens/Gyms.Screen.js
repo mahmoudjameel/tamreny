@@ -47,12 +47,12 @@ const Gyms = (props) => {
   return (
     <>
       <Header {...props} title="الصالات الرياضية" backBtnEnabled />
+      <SearchBtn
+        style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+        onSearch={setSearchQuery}
+      />
       <KeyboardAwareScrollView>
         <MainContainer bgColor={Colors.white}>
-          <SearchBtn
-            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-            onSearch={setSearchQuery}
-          />
           <ScrollContainer bgColor={Colors.white}>
             <Container bgColor={Colors.white}>
               {halls.filter(

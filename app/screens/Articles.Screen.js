@@ -46,12 +46,12 @@ const Articles = (props) => {
   return (
     <>
       <Header {...props} title="المقالات" backBtnEnabled />
+      <SearchBtn
+        style={{ position: "absolute", top: 60, left: 10, zIndex: 6 }}
+        onSearch={setSearchQuery}
+      />
       <KeyboardAwareScrollView>
         <MainContainer bgColor={Colors.white}>
-          <SearchBtn
-            style={{ position: "absolute", top: 60, left: 10, zIndex: 6 }}
-            onSearch={setSearchQuery}
-          />
           <ScrollContainer bgColor={Colors.white}>
             <AdMobBanner
               bannerSize="fullBanner"

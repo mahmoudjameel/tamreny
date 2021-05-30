@@ -63,11 +63,11 @@ const ImageProteins = (props) => {
   return (
     <>
       <Header {...props} title={name} backBtnEnabled />
+      <SearchBtn
+        style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+      />
       <KeyboardAwareScrollView>
         <MainContainer>
-          <SearchBtn
-            style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
-          />
           <ScrollContainer>
             <Container>
               {Proteins.map(({ _id, mainImage, name, description }, i) => (
