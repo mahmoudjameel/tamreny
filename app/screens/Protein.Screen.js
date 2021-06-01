@@ -36,7 +36,7 @@ const Protein = (props) => {
         proteins: 0.5,
         fats: 0.2,
       },
-      x: 13,
+      x: 13.5,
       label: "إنقاص الوزن",
     },
     {
@@ -51,10 +51,10 @@ const Protein = (props) => {
     {
       value: {
         carbohydrates: 0.5,
-        proteins: 0.4,
+        proteins: 0.3,
         fats: 0.1,
       },
-      x: 17,
+      x: 16,
       label: "زيادة الوزن",
     },
   ];
@@ -231,7 +231,7 @@ const Protein = (props) => {
               <NormalText color={Colors.black}>غرام</NormalText>
             </RowContainer>
             <RowContainer style={{ marginBottom: 5 }}>
-              <Title color={Colors.black}>الدهون</Title>
+              <Title color={Colors.black}>الدهون الصحية</Title>
               <ResultText color={Colors.red}>{resultObj.fats}</ResultText>
               <NormalText color={Colors.black}>غرام</NormalText>
             </RowContainer>
