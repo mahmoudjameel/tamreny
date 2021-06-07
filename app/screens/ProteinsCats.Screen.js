@@ -56,14 +56,13 @@ const ProteinsCats = (props) => {
 
   const CategoryCard = styled.View`
     width: 110px;
-    height: 150px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.95);
     elevation: 6;
     background-color: ${Colors.white};
     border-radius: 10px;
     overflow: hidden;
     border: 0.5px solid ${Colors.black + "11"};
-    padding: 15px 10px;
+    padding: 20px 10px;
     align-items: center;
     margin: 15px 2%;
   `;
@@ -72,7 +71,6 @@ const ProteinsCats = (props) => {
     font-size: 14px;
     text-align: center;
     align-self: center;
-    line-height: 30px;
     margin-top: 15px;
     font-family: Cairo-SemiBold;
     color: ${Colors.black};

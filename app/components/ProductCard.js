@@ -10,7 +10,6 @@ const ProductCard = ({ navigation, product }) => {
 
   const Container = styled.View`
     width: 100%;
-    height: 250px;
     border-radius: 10px;
     background-color: ${Colors.white};
     elevation: 10;
@@ -28,7 +27,6 @@ const ProductCard = ({ navigation, product }) => {
     font-size: 18px;
     font-family: Cairo-SemiBold;
     line-height: 24px;
-    margin: 14px 12px 5px 30px;
   `;
 
   const Description = styled.Text`

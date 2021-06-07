@@ -61,7 +61,7 @@ const SupplementCard = ({ navigation, title, content, mainImage, _id }) => {
       useForeground
       onPress={() =>
         navigation.navigate("Supplement", {
-          _id
+          _id,
         })
       }
     >

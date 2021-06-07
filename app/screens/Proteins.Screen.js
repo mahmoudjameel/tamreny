@@ -13,6 +13,7 @@ const ImageProteins = (props) => {
   let { categoryId, name, type } = props.route.params || {};
 
   const [Proteins, setProteins] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getProteins();
@@ -65,21 +66,26 @@ const ImageProteins = (props) => {
       <Header {...props} title={name} backBtnEnabled />
       <SearchBtn
         style={{ position: "absolute", bottom: 15, left: 18, zIndex: 6 }}
+        onSearch={setSearchQuery}
       />
       <KeyboardAwareScrollView>
         <MainContainer>
           <ScrollContainer>
             <Container>
-              {Proteins.map(({ _id, mainImage, name, description }, i) => (
-                <SupplementCard
-                  key={_id}
-                  {...props}
-                  _id={_id}
-                  title={name}
-                  content={description}
-                  mainImage={mainImage[0]}
-                />
-              ))}
+              {Proteins.map(
+                ({ _id, mainImage, name, description }, i) =>
+                  (name.includes(searchQuery) ||
+                    description.includes(searchQuery)) && (
+                    <SupplementCard
+                      key={_id}
+                      {...props}
+                      _id={_id}
+                      title={name}
+                      content={description}
+                      mainImage={mainImage[0]}
+                    />
+                  )
+              )}
             </Container>
           </ScrollContainer>
         </MainContainer>
