@@ -1,6 +1,12 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, TouchableNativeFeedback } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  TouchableNativeFeedback,
+  View,
+  Text,
+} from "react-native";
 import styled from "styled-components";
 import axios from "axios";
 import { API_URL } from "../settings/Config";
@@ -53,29 +59,6 @@ const ProteinsCats = (props) => {
     flex: 1;
     background-color: ${Colors.white};
   `;
-
-  const CategoryCard = styled.View`
-    width: 110px;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.95);
-    elevation: 6;
-    background-color: ${Colors.white};
-    border-radius: 10px;
-    overflow: hidden;
-    border: 0.5px solid ${Colors.black + "11"};
-    padding: 20px 10px;
-    align-items: center;
-    margin: 15px 2%;
-  `;
-
-  const CardText = styled.Text`
-    font-size: 14px;
-    text-align: center;
-    align-self: center;
-    margin-top: 15px;
-    font-family: Cairo-SemiBold;
-    color: ${Colors.black};
-  `;
-
   const SmallImage = styled.Image`
     width: 100%;
     height: 70%;
@@ -103,10 +86,18 @@ const ProteinsCats = (props) => {
                 })
               }
             >
-              <CategoryCard>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: 15,
+                  padding: 10,
+                  width: "25%",
+                }}
+              >
                 <SmallImage source={{ uri: item.image }} />
-                <CardText>{item.name}</CardText>
-              </CategoryCard>
+                <Text>{item.name}</Text>
+              </View>
             </TouchableNativeFeedback>
           )}
           keyExtractor={(item, index) => item._id.toString()}
