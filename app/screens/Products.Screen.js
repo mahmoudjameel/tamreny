@@ -49,31 +49,29 @@ const Products = (props) => {
         style={{ position: "absolute", bottom: 40, left: 18, zIndex: 6 }}
         onSearch={setSearchQuery}
       />
-      <KeyboardAwareScrollView>
-        <MainContainer bgColor={Colors.white}>
-          <ScrollContainer bgColor={Colors.white}>
-            <Container bgColor={Colors.white}>
-              {products.filter(
-                (product) =>
-                  product.title.includes(searchQuery) ||
-                  product.description.includes(searchQuery)
-              ).length != 0 ? (
-                products
-                  .filter(
-                    (product) =>
-                      product.title.includes(searchQuery) ||
-                      product.description.includes(searchQuery)
-                  )
-                  .map((product, i) => (
-                    <ProductCard key={i} {...props} product={product} />
-                  ))
-              ) : (
-                <NormalText color={Colors.darkGray}>لا يوجد منتجات</NormalText>
-              )}
-            </Container>
-          </ScrollContainer>
-        </MainContainer>
-      </KeyboardAwareScrollView>
+      <MainContainer bgColor={Colors.white}>
+        <ScrollContainer bgColor={Colors.white}>
+          <Container bgColor={Colors.white}>
+            {products.filter(
+              (product) =>
+                product.title.includes(searchQuery) ||
+                product.description.includes(searchQuery)
+            ).length != 0 ? (
+              products
+                .filter(
+                  (product) =>
+                    product.title.includes(searchQuery) ||
+                    product.description.includes(searchQuery)
+                )
+                .map((product, i) => (
+                  <ProductCard key={i} {...props} product={product} />
+                ))
+            ) : (
+              <NormalText color={Colors.darkGray}>لا يوجد منتجات</NormalText>
+            )}
+          </Container>
+        </ScrollContainer>
+      </MainContainer>
     </>
   );
 };
@@ -92,6 +90,7 @@ const Container = styled.View`
   flex: 1;
   background-color: ${(props) => props.bgColor};
   padding: 20px 15px;
+  height: 100%;
 `;
 
 const NormalText = styled.Text`
