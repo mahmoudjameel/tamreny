@@ -18,6 +18,7 @@ const Gyms = (props) => {
     ask: true,
   });
   const [halls, setHalls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -35,7 +36,9 @@ const Gyms = (props) => {
 
       if (data.status) {
         setHalls(data.halls);
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         alert(data.errors);
       }
     } catch (e) {
@@ -89,6 +92,10 @@ const Gyms = (props) => {
                       />
                     )
                   )
+              ) : isLoading ? (
+                <NormalText color={Colors.darkGray}>
+                  جاري تحميل البيانات
+                </NormalText>
               ) : (
                 <NormalText color={Colors.darkGray}>
                   لا يوجد صالات رياضية{" "}
