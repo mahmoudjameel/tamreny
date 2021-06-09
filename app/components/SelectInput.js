@@ -8,7 +8,8 @@ import {
   Modal,
   ScrollView,
   TextInput,
-  Dimensions
+  Dimensions,
+  SafeAreaView,
 } from "react-native";
 import styled from "styled-components";
 import { useThemeContext } from "../helpers/AppProvider";
@@ -22,7 +23,7 @@ const SelectInput = ({
   searchQuery,
   setSearchQuery,
   showInput,
-  type
+  type,
 }) => {
   const Theme = useThemeContext();
   let Colors = Theme.Colors;
@@ -56,7 +57,9 @@ const SelectInput = ({
       overflow: "hidden",
       // paddingTop: 45,
       // paddingBottom: 20,
-      height: showInput ? Dimensions.get('window').height - 25 : Dimensions.get('window').height
+      height: showInput
+        ? Dimensions.get("window").height - 25
+        : Dimensions.get("window").height,
     },
     itemContainer: {
       padding: 10,
@@ -88,21 +91,46 @@ const SelectInput = ({
       animationType="slide"
       onRequestClose={toggleModal}
     >
-      {
-        showInput && (
-          <Input
-            placeholder="بحث..."
-            defaultValue={searchQuery}
-            onChangeText={(value) => {
-              setSearchQuery(value);
-            }}
-          />
-        )
-      }
       <View style={styles.modalContainer}>
         <ScrollView style={styles.itemsContainer}>
-          {selection.map((item, index) => type === "food-nutritions" ? (
-            ((item.label && item.label.includes(searchQuery)) || (item.name && item.name.includes(searchQuery))) && (
+          <View style={{ marginVertical: 40 }}>
+            {showInput && (
+              <Input
+                placeholder="بحث..."
+                defaultValue={searchQuery}
+                onChangeText={(value) => {
+                  setSearchQuery(value);
+                }}
+              />
+            )}
+          </View>
+          {selection.map((item, index) =>
+            type === "food-nutritions" ? (
+              ((item.label && item.label.includes(searchQuery)) ||
+                (item.name && item.name.includes(searchQuery))) && (
+                <TouchableNativeFeedback
+                  useForeground
+                  key={index}
+                  onPress={() => changeValue(index)}
+                >
+                  <View>
+                    <View
+                      style={[
+                        styles.itemContainer,
+                        value == index && styles.selectedOption,
+                      ]}
+                    >
+                      <Text style={styles.itemLabel}>
+                        {item.label || item.name}
+                      </Text>
+                    </View>
+                    {index != selection.length - 1 && (
+                      <View style={styles.separator}></View>
+                    )}
+                  </View>
+                </TouchableNativeFeedback>
+              )
+            ) : (
               <TouchableNativeFeedback
                 useForeground
                 key={index}
@@ -125,29 +153,7 @@ const SelectInput = ({
                 </View>
               </TouchableNativeFeedback>
             )
-          ) : (
-            <TouchableNativeFeedback
-              useForeground
-              key={index}
-              onPress={() => changeValue(index)}
-            >
-              <View>
-                <View
-                  style={[
-                    styles.itemContainer,
-                    value == index && styles.selectedOption,
-                  ]}
-                >
-                  <Text style={styles.itemLabel}>
-                    {item.label || item.name}
-                  </Text>
-                </View>
-                {index != selection.length - 1 && (
-                  <View style={styles.separator}></View>
-                )}
-              </View>
-            </TouchableNativeFeedback>
-          ))}
+          )}
         </ScrollView>
       </View>
     </Modal>
