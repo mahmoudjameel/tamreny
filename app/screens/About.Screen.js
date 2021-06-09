@@ -55,10 +55,12 @@ const About = (props) => {
           <Container bgColor={Colors.white} borderColor={Colors.black + "11"}>
             <RowContainer>
               <NormalText color={Colors.darkGray}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut,
-                amet alias. Illo veritatis, aliquid veniam modi fugiat dolore
-                excepturi perspiciatis maxime ab odio alias perferendis, et
-                ipsum. Animi, distinctio magnam!
+                تطبيق تمريني هوه تطبيق شامل للرياضيين بشكل عام ولرياضة كمال
+                الاجسام بشكل خاص بحيث هوه مزود بكل اقسام التي يحتاجها الرياضي
+                -المقالات -حاسبه البروتينات -حاسبة القيم الغذائيه -متجر للمكملات
+                العذائيه -اقسام للتمارين وكيفيه ادائها وغيرها من الاقسام المفيده
+                اذا كنت تبحث عن تطبيق يكون رفيق تمرينك ويساعدك بكل شي يخص
+                التمرين فأنت بالمكان الصحيح تطبيق تمريني هوه الحل لك
               </NormalText>
             </RowContainer>
 
