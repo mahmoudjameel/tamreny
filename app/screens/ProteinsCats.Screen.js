@@ -21,6 +21,7 @@ const ProteinsCats = (props) => {
   let { type, title } = props.route.params;
 
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getCategories();
@@ -34,8 +35,10 @@ const ProteinsCats = (props) => {
       let data = await response.data;
 
       if (data.status) {
+        setIsLoading(false);
         setCategories(data.proteinsCats);
       } else {
+        setIsLoading(false);
         alert(data.errors);
       }
     } catch (e) {
@@ -47,11 +50,8 @@ const ProteinsCats = (props) => {
 
   const styles = StyleSheet.create({
     FlatList: {
-      justifyContent: "center",
-      alignItems: "center",
       width: "100%",
       backgroundColor: Colors.white,
-      padding: 20,
     },
   });
 
@@ -59,11 +59,44 @@ const ProteinsCats = (props) => {
     flex: 1;
     background-color: ${Colors.white};
   `;
+
+  const CategoryCard = styled.View`
+    width: 110px;
+    height: 140px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.95);
+    elevation: 6;
+    background-color: ${Colors.white};
+    border-radius: 10px;
+    overflow: hidden;
+    border: 0.5px solid ${Colors.black + "11"};
+    padding: 10px 5px;
+    align-items: center;
+    margin: 15px 2%;
+  `;
+
+  const CardText = styled.Text`
+    font-size: 14px;
+    text-align: center;
+    align-self: center;
+    line-height: 21px;
+    margin-top: 5px;
+    font-family: Cairo-SemiBold;
+    color: ${Colors.black};
+  `;
+
   const SmallImage = styled.Image`
-    width: 100%;
-    height: 70%;
+    width: 100px;
+    height: 80px;
     resize-mode: contain;
     align-self: center;
+  `;
+
+  const NormalText = styled.Text`
+    font-family: Cairo-Regular;
+    font-size: 20px;
+    margin-top: 10px;
+    color: ${(props) => props.color};
+    text-align: center;
   `;
 
   /******************************************************/
@@ -71,37 +104,36 @@ const ProteinsCats = (props) => {
     <>
       <Header {...props} title={title} backBtnEnabled />
       <MainContainer>
-        <FlatList
-          contentContainerStyle={styles.FlatList}
-          numColumns={3}
-          data={categories}
-          renderItem={({ item }) => (
-            <TouchableNativeFeedback
-              useForeground
-              onPress={() =>
-                props.navigation.navigate("Proteins", {
-                  categoryId: item._id,
-                  name: item.name,
-                  type,
-                })
-              }
-            >
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: 15,
-                  padding: 10,
-                  width: "25%",
-                }}
+        {isLoading ? (
+          <NormalText color={Colors.darkGray}>جاري تحميل البيانات</NormalText>
+        ) : (
+          <FlatList
+            contentContainerStyle={styles.FlatList}
+            numColumns={3}
+            data={categories}
+            ListEmptyComponent={
+              <NormalText color={Colors.darkGray}>لا توجد أي بيانات</NormalText>
+            }
+            renderItem={({ item }) => (
+              <TouchableNativeFeedback
+                useForeground
+                onPress={() =>
+                  props.navigation.navigate("Proteins", {
+                    categoryId: item._id,
+                    name: item.name,
+                    type,
+                  })
+                }
               >
-                <SmallImage source={{ uri: item.image }} />
-                <Text>{item.name}</Text>
-              </View>
-            </TouchableNativeFeedback>
-          )}
-          keyExtractor={(item, index) => item._id.toString()}
-        />
+                <CategoryCard>
+                  <SmallImage source={{ uri: item.image }} />
+                  <CardText>{item.name}</CardText>
+                </CategoryCard>
+              </TouchableNativeFeedback>
+            )}
+            keyExtractor={(item, index) => item._id.toString() + index}
+          />
+        )}
       </MainContainer>
     </>
   );
