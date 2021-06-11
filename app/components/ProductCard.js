@@ -19,21 +19,24 @@ const ProductCard = ({ navigation, product }) => {
   `;
 
   const ProductImage = styled.Image`
-    width: 102%;
-    height: 60%;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 10px;
   `;
 
   const Title = styled.Text`
     font-size: 18px;
     font-family: Cairo-SemiBold;
     line-height: 24px;
+    margin-left: 10px;
+    margin-right: 10px;
   `;
 
   const Description = styled.Text`
     font-size: 14px;
     line-height: 22px;
     font-family: ArabicUI;
-    margin: 0px 12px 5px 30px;
+    margin: 0px 30px 5px 30px;
     color: ${Colors.darkGray};
   `;
   const PriceContainer = styled.View`
@@ -72,7 +75,7 @@ const ProductCard = ({ navigation, product }) => {
         </PriceContainer>
         <ProductImage source={{ uri: product.mainImage }} />
         <Title numberOfLines={1}>{product.title}</Title>
-        <Description numberOfLines={2}>{product.description}</Description>
+        <Description numberOfLines={1}>{product.description}</Description>
       </Container>
     </TouchableNativeFeedback>
   );
