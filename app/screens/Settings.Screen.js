@@ -96,10 +96,10 @@ const Settings = (props) => {
                 color={Colors.darkGray}
                 style={{ color: Colors.green }}
                 onPress={() =>
-                  Linking.openURL("https://www.facebook.com/jamalhassouni.18")
-                }
-              >
-                Jamal Hassouni
+                  Linking.openURL("https://web.facebook.com/ahmed987654")
+                }              >
+                Ahmed Muthana
+
               </NormalText>
             </NormalText>
           </Container>

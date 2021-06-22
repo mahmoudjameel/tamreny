@@ -2,7 +2,7 @@
   "expo": {
     "name": "Tamrini",
     "slug": "tamrini",
-    "version": "1.0.4",
+    "version": "1.1.4",
     "orientation": "portrait",
     "icon": "./app/assets/main-img/icon.png",
     "splash": {
@@ -19,10 +19,16 @@
       "bundleIdentifier": "com.tamrini.app",
       "buildNumber": "1.0.4",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-2927383253903778~3597160507"
+        "googleMobileAdsAppId": "ca-app-pub-2927383253903778~4963485558"
+        
+
       },
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "We need to know your current location to find the near places. Do you allow us to use location service on this device ?"
+        "NSLocationWhenInUseUsageDescription": "We need to know your current location to find the near Gym places. Do you allow us to use location service on this device ?",
+        "NSCameraUsageDescription": "Please you allow us to access your camera to take photo for transaction to insure the purchase process",
+        "NSPhotoLibraryUsageDescription": "Please you allow us to access your Photos to upload photo for transaction to insure the purchase process",
+         "NSPhotoLibraryAddUsageDescription": "Please you allow us to access your Photos to upload photo for transaction to insure the purchase process"
+
       }
     },
     "android": {
@@ -30,7 +36,7 @@
         "foregroundImage": "./app/assets/main-img/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.tamrini.com",
+      "package": "com.tamrini1.com",
       "versionCode": 5,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2927383253903778~1737283929"

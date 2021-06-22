@@ -69,7 +69,7 @@ const Supplements = (props) => {
                   ))
               ) : (
                 <NormalText color={Colors.darkGray}>
-                  لا يوجد مكملات غذائية
+                                  جاري التحميل ...
                 </NormalText>
               )}
             </Container>

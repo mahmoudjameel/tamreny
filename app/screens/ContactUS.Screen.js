@@ -72,10 +72,10 @@ const ContactUS = (props) => {
                 color={Colors.darkGray}
                 style={{ color: Colors.green }}
                 onPress={() =>
-                  Linking.openURL("https://www.facebook.com/jamalhassouni.18")
+                  Linking.openURL("https://web.facebook.com/ahmed987654")
                 }
               >
-                Jamal Hassouni
+                Ahmed Muthana
               </NormalText>
             </NormalText>
           </Container>

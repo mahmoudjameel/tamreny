@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import Icon from "react-native-ionicons";
 import pkg from "../../app.json";
-import { useThemeContext, useAuthContext } from "../helpers/AppProvider";
+import { useThemeContext, useAuthContext, useAppContext } from "../helpers/AppProvider";
 import { MustLogin } from "./";
 
 const CustomDrawer = (props = { navigation }) => {
@@ -70,7 +70,7 @@ const CustomDrawer = (props = { navigation }) => {
       action: () =>
         Platform.OS == "android"
           ? Linking.openURL(
-              "https://play.google.com/store/apps/details?id=com.tamrini.com"
+              "https://play.google.com/store/apps/details?id=com.tamrini1.com"
             )
           : Linking.openURL("https://tamrini.com/"),
     },
@@ -99,9 +99,9 @@ const CustomDrawer = (props = { navigation }) => {
   `;
 
   const LogoImage = styled.Image`
-    width: 190px;
-    height: 190px;
-    border-radius: ${250 / 2}px;
+    width: 200px;
+    height: 200px;
+    resizeMode: center ;
   `;
 
   const BtnsContainer = styled.View`
@@ -148,16 +148,20 @@ const CustomDrawer = (props = { navigation }) => {
   `;
 
   /******************************************************/
+  const { primaryFace } = useAppContext();
+
   return (
     <DrawerContentScrollView
       {...props}
       contentContainerStyle={{ minHeight: "100%" }}
     >
       {forceLogin && <MustLogin {...props} />}
-
       <LogoContainer>
-        <LogoImage source={require("../assets/img/logo.png")} />
+      <LogoImage source={require("../assets/img/logo.png")} />
       </LogoContainer>
+
+     
+
       <BtnsContainer>
         {screens.map(
           (screen, i) =>

@@ -33,28 +33,28 @@ const ChangeColor = ({ visible, onClose = () => null }) => {
   const getImagesUri = async () => {
     setFaceImages({
       noFace: Image.resolveAssetSource(
-        (await import("../assets/img/no-face.png")).default
+        (await import("../assets/img/no-face1.png")).default
       ).uri,
       happyFace: Image.resolveAssetSource(
-        (await import("../assets/img/happy-face.png")).default
+        (await import("../assets/img/happy-face1.png")).default
       ).uri,
       sadFace: Image.resolveAssetSource(
-        (await import("../assets/img/sad-face.png")).default
+        (await import("../assets/img/sad-face1.png")).default
       ).uri,
       powerFace: Image.resolveAssetSource(
-        (await import("../assets/img/power-face.png")).default
+        (await import("../assets/img/power-face1.png")).default
       ).uri,
       afraidFace: Image.resolveAssetSource(
-        (await import("../assets/img/afraid-face.png")).default
+        (await import("../assets/img/afraid-face1.png")).default
       ).uri,
       exhaustedFace: Image.resolveAssetSource(
-        (await import("../assets/img/exhausted-face.png")).default
+        (await import("../assets/img/exhausted-face1.png")).default
       ).uri,
       loveFace: Image.resolveAssetSource(
-        (await import("../assets/img/love-face.png")).default
+        (await import("../assets/img/love-face1.png")).default
       ).uri,
       angryFace: Image.resolveAssetSource(
-        (await import("../assets/img/angry-face.png")).default
+        (await import("../assets/img/angry-face1.png")).default
       ).uri,
     });
   };
@@ -257,7 +257,6 @@ const FaceContainer = styled.View`
 const ImageContainer = styled.View`
   width: 65px;
   height: 65px;
-  border-radius: ${150 / 2}px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
@@ -266,7 +265,12 @@ const ImageContainer = styled.View`
 const FaceImage = styled.Image`
   width: 70px;
   height: 70px;
+  resizeMode: center ;
+
+  
+  
 `;
+
 
 const FaceText = styled.Text`
   color: ${(props) => props.color};

@@ -76,8 +76,8 @@ const Container = styled.View`
 `;
 
 const FaceContainer = styled.View`
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: ${100 / 2}px;
   align-self: center;
   align-items: center;
@@ -85,12 +85,13 @@ const FaceContainer = styled.View`
   margin-left: 15px;
   overflow: hidden;
   elevation: 2;
+  
 `;
 
 const FaceImage = styled.Image`
   width: 45px;
   height: 45px;
-  resize-mode: contain;
+  resize-mode: center;
 `;
 
 const ShareContainer = styled.View`

@@ -71,7 +71,7 @@ const ProductCategories = (props) => {
                 ))
             ) : (
               <Text style={{ color: Colors.darkGray, textAlign: "center" }}>
-                لا يوجد منتجات
+                جاري التحميل ...
               </Text>
             )}
           </View>

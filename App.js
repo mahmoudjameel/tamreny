@@ -52,7 +52,7 @@ const App = () => {
               bannerSize="banner"
               adUnitID={
                 Platform.OS == "ios"
-                  ? "ca-app-pub-2927383253903778/2231752723"
+                  ? "ca-app-pub-2927383253903778/3458832193"
                   : "ca-app-pub-2927383253903778/3589421647"
               }
               style={{

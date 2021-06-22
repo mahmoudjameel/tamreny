@@ -238,7 +238,9 @@ const Order = (props) => {
               </>
             )}
 
-            <TouchableNativeFeedback useForground onPress={() => null}>
+            <TouchableNativeFeedback useForground
+             onPress={() => props.navigation.navigate("Home")}
+           >
               <Btn color={Colors.red}>
                 <NormalText color={Colors.white}>الغاء الطلب</NormalText>
               </Btn>
